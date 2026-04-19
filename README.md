@@ -4,6 +4,7 @@
 - Sidebar with hover/interaction effects
 - Scrollable stories bar at the top
 - Scrollable feed with images
+- Footer
   
 ### Tech
 - React (Vite)
