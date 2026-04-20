@@ -1,0 +1,90 @@
+.stories-container-main {
+  position: relative;
+  background-color: #000;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 530px; 
+  margin: 0 auto;
+  padding: 10px 0;
+}
+
+.stories-wrapper {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  padding: 0 5px;
+}
+
+.stories-wrapper::-webkit-scrollbar {
+  display: none;
+}
+
+.story {
+  width: 75px;
+  text-align: center;
+  flex-shrink: 0;
+  scroll-snap-align: start;
+}
+
+/* THE BOLD & VIBRANT RING */
+.story-img {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  padding: 3px; 
+  /* High-saturation Instagram Palette */
+  background: linear-gradient(45deg, #f9ed32 0%, #ee2a7b 25%, #d22a8a 50%, #8b2ab2 75%, #1b1b1b 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  /* Adds a subtle 'lit' glow effect */
+  filter: drop-shadow(0 0 2px rgba(238, 42, 123, 0.5));
+}
+
+.story-img img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  /* The black border makes the vibrant ring look sharper */
+  border: 2px solid #000;
+}
+
+.story p {
+  color: #fff;
+  font-size: 11px; /* Slightly smaller for a cleaner look */
+  margin-top: 6px;
+  font-family: -apple-system, sans-serif;
+  letter-spacing: 0.2px;
+}
+
+/* Buttons (Hover Logic) */
+.nav-btn {
+  position: absolute;
+  z-index: 10;
+  background: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 26px;
+  height: 26px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.8);
+}
+
+.stories-container-main:hover .nav-btn {
+  opacity: 1;
+}
+
+/* Positioned slightly off-center to look professional */
+.left-btn { left: -10px; }
+.right-btn { right: -10px; }
