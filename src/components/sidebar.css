@@ -1,0 +1,26 @@
+.sidebar-container {
+    /* min-width: 10vh; */
+    /* max-width: 30vh; */
+    width: 8vw;
+    height: 100vh;
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+}
+.fa-solid,.fa-brands{
+    font-size: x-large;
+    color: white;
+}
+.item{
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    /* font-size: larger; */
+}
+
+.fa-solid:hover,.fa-brands:hover{
+    scale: 1.2;
+    transition: 0.1s ease-in-out;
+}
