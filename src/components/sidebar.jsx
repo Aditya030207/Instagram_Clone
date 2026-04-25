@@ -1,32 +1,23 @@
-import React, { useState } from 'react'
-import './sidebar.css'
+import React from 'react'
 
 const sidebar = () => {
-  const [isHover, SetIsHover] = useState(false)
-
   return (
-    <div className='sidebar-container'
-    onMouseEnter={()=>{SetIsHover(true)}}
-    onMouseLeave={()=>{SetIsHover(false)}}
-    // style={{
-      // width: isHover ? '30vw' : '10vw',
-      // alignItems: isHover ? 'start':'center',
-      // }}
-    >
-      <div className="fa-brands fa-instagram"></div>
-      <br />
-      <div className='fa-solid fa-house'></div>
-      <div className='fa-solid fa-film'></div>
-      <div className='fa-solid fa-paper-plane'></div>
-      <div className='fa-solid fa-search'></div>
-      <div className='fa-solid fa-compass'></div>
-      <div className='fa-solid fa-heart'></div>
-      <div className='fa-solid fa-add'></div>
-      <br />
-      <div className="fa-solid fa-bars"></div>
-      <div className="fa-solid fa-cubes-stacked"></div>
+    <div className='w-20 h-screen bg-black text-white text-2xl flex flex-col justify-around items-center gap-1 m-0'>
+      <i className='fa-brands fa-instagram  pt-5'></i>
+                    <br />
+      <i className='fa-solid fa-house'></i>
+      <i className='fa-solid fa-film'></i>
+      <i className='fa-regular fa-paper-plane'></i>
+      <i className='fa-solid fa-search'></i>
+      <i className='fa-regular fa-compass'></i>
+      <i className='fa-regular fa-heart'></i>
+      <i className='fa-regular fa-add'></i>
+      <div className="w-10 h-10 bg-gray-400/50 rounded-full bg-cover bg-center bg-[url(/assets/profile.png)]" ></div>
+                    <br />
+      <i className="fa-solid fa-bars"></i>
+      <i className="fa-solid fa-cubes-stacked"></i>
     </div>
-  ) 
+  )
 }
 
 export default sidebar
