@@ -1052,9 +1052,8 @@ export default function App() {
                   service.
                 </p>
                 <p>
-                  Images load from Lorem Picsum and the Art Institute of
-                  Chicago, which receive normal image requests from your
-                  browser.
+                  Images load from Lorem Picsum and the Metropolitan Museum of
+                  Art, which receive normal image requests from your browser.
                 </p>
               </div>
             )}

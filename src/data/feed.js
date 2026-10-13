@@ -140,7 +140,7 @@ export const initialPosts = media.map((asset, i) => ({
   caption:
     captions[i]?.[0] ||
     `Today's inspiration: ${asset.title}. A little time with art is always time well spent. 🎨`,
-  location: captions[i]?.[1] || "Art Institute of Chicago",
+  location: captions[i]?.[1] || "Metropolitan Museum of Art",
   category: captions[i]?.[2] || "Art",
   alt: asset.title || `${captions[i]?.[1]} — photograph by ${asset.author}`,
   likes: 128 + ((i * 379) % 2400),

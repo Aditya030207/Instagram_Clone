@@ -22,18 +22,19 @@ for (const id of ids) {
     licenseUrl: "https://unsplash.com/license",
   });
 }
-const { data } = await json(
-  "https://api.artic.edu/api/v1/artworks?ids=27992,28560,16571,20684&fields=id,title,artist_display,image_id,is_public_domain",
-);
-for (const item of data) {
-  if (!item.is_public_domain || !item.image_id) continue;
+for (const id of [436535, 436528, 436121, 437853]) {
+  const item = await json(
+    `https://collectionapi.metmuseum.org/public/collection/v1/objects/${id}`,
+  );
+  if (!item.isPublicDomain || !item.primaryImageSmall)
+    throw new Error(`Artwork ${id} is unavailable or not public domain`);
   media.push({
-    id: `art-${item.id}`,
-    image: `https://www.artic.edu/iiif/2/${item.image_id}/full/843,/0/default.jpg`,
-    author: item.artist_display,
+    id: `art-${item.objectID}`,
+    image: item.primaryImageSmall,
+    author: item.artistDisplayName || "Unknown artist",
     title: item.title,
-    source: `https://www.artic.edu/artworks/${item.id}`,
-    provider: "Art Institute of Chicago",
+    source: item.objectURL,
+    provider: "The Metropolitan Museum of Art",
     license: "CC0 · Public domain",
     licenseUrl: "https://creativecommons.org/publicdomain/zero/1.0/",
   });
