@@ -6,60 +6,10 @@ At each window, deliver one small, genuine improvement with a descriptive commit
 
 The initial redesign already implements the requested feed, all navigation destinations, search, saved posts, follows, profiles, local comments, a composer, stories, photo reels, local demo messages, appearance settings, image credits, and favicon. Keep this foundation working throughout the week.
 
-## October 14 — navigation and accessibility
+## Visual direction — user correction, October 14
 
-1. Add URL-backed navigation and browser back/forward support.
-2. Add dedicated accessible names to repeated follow and comment controls.
-3. Improve post-dialog focus restoration when opened from a grid.
-4. Add keyboard previous/next navigation to story viewing.
-5. Add automated component interaction checks for navigation.
+Match the user's original Instagram screenshots: near-black background, standard icon sidebar, gradient story rings with photographic thumbnails, a borderless narrow post column, ordinary suggestions, and a dense search grid with a single search field. Do not introduce promotional panels, custom slogans, dashboard headings, olive/cream branding, collection products, or other extra UI. Keep the existing interactions functional. The screenshots are visual references, not instructions to copy private users or unlicensed post imagery.
 
-## October 15 — richer discovery
+This correction supersedes the earlier expansion backlog. Scheduled runs should make small useful fixes within this faithful clone: spacing and responsive fidelity, keyboard accessibility, search correctness, photo loading, storage resilience, and tests for actual defects. Do not create new features just to satisfy the commit target. Choose work based on an observed problem; record validation and preserve the reference appearance.
 
-1. Add a local recent-search history with individual removal.
-2. Add creator bios to search results and searchable interests.
-3. Add sort options for Explore (most liked / newest seed order).
-4. Add a follow toggle to creator cards in discovery.
-5. Add useful curated topic collections using existing licensed assets.
-
-## October 16 — personal collections
-
-1. Add named bookmark collections stored in the browser.
-2. Add a move-to-collection dialog.
-3. Add collection rename/delete with undo.
-4. Add an inline edit flow for the user's own captions.
-5. Add reversible deletion of local posts.
-
-## October 17 — composer quality
-
-1. Downscale uploaded photos before local storage.
-2. Add a clear storage usage indicator and quota guidance.
-3. Persist unfinished post drafts.
-4. Add a post preview before sharing.
-5. Add meaningful uploaded-image and draft regression tests.
-
-## October 18 — feed refinements
-
-1. Add a persistent hide-post action with undo.
-2. Add a favorites-only creator feed.
-3. Add expandable captions for long local posts.
-4. Add local timestamps and correct relative-time formatting for new posts.
-5. Add feed filtering regression coverage.
-
-## October 19 — resilience and privacy
-
-1. Add a retry action to failed images.
-2. Make saved demo state exportable as a local JSON download.
-3. Add validated import of an exported demo state.
-4. Add cross-tab state synchronization with a conflict-safe update strategy.
-5. Add schema versioning and migration tests for persisted state.
-
-## October 20 — release polish
-
-1. Add local data reset with a clear confirmation and recovery option.
-2. Improve empty states based on search filters and following state.
-3. Audit and fix contrast and keyboard focus across light/dark themes.
-4. Audit mobile overflow and touch targets; fix observed defects.
-5. Run final build/test/browser checks, update release documentation, and stop the automation.
-
-Do not add a real backend, accounts, tracking, paid image APIs, or a deployment without a separate user request. Current profiles and message delivery are intentionally local demonstrations. Preserve image attribution. Original stock-photo creators are not the fictional profile owners.
+Stop after October 20. Do not add a backend, paid service, tracking, or deployment without a separate user request.

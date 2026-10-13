@@ -17,7 +17,16 @@ function Avatar({ user, size = 40, story = false }) {
       className={`avatar ${story ? "ring" : ""}`}
       style={{ width: size, height: size, "--avatar-color": user.color }}
     >
-      <span>{user.initials}</span>
+      <span>
+        <img
+          src={`https://picsum.photos/id/${[1025, 1015, 1016, 1040, 1036, 1060, 1080, 1039, 1050, 1024, 1018, 1043, 1056][user.id]}/100/100`}
+          alt=""
+          onError={(e) => {
+            e.currentTarget.style.display = "none";
+          }}
+        />
+        <span className="avatar-initials">{user.initials}</span>
+      </span>
     </span>
   );
 }
@@ -234,9 +243,9 @@ function Post({ post, detailed = false }) {
 export default function App() {
   const [state, setState] = useState(() => {
     try {
-      return readState(window.localStorage);
+      return { ...readState(window.localStorage), theme: "dark" };
     } catch {
-      return readState(null);
+      return { ...readState(null), theme: "dark" };
     }
   });
   const [view, setView] = useState("Home");
@@ -321,13 +330,11 @@ export default function App() {
   const profilePosts = posts.filter((p) => p.userId === profileId);
   const navItems = [
     "Home",
-    "Search",
-    "Explore",
     "Reels",
     "Messages",
+    "Search",
     "Notifications",
     "Create",
-    "Saved",
     "Profile",
   ];
   const grid = (items) => (
@@ -349,7 +356,7 @@ export default function App() {
   const empty = (title, text) => (
     <div className="empty">
       <Icon name="Explore" size={38} />
-      <h2 id={headingId}>{title}</h2>
+      <h2>{title}</h2>
       <p>{text}</p>
       <button className="primary" onClick={() => navigate("Explore")}>
         Discover something new
@@ -360,7 +367,7 @@ export default function App() {
     <FeedContext.Provider
       value={{ openProfile, state, toggle, setModal, share, setState }}
     >
-      <div className="app-shell">
+      <div className={`app-shell view-${view.toLowerCase()}`}>
         <a className="skip-link" href="#main">
           Skip to feed
         </a>
@@ -371,13 +378,13 @@ export default function App() {
             aria-label="Instagram home"
           >
             <span className="brand-icon">
-              <Icon name="Create" size={28} />
+              <Icon name="Instagram" size={28} />
             </span>
             <span>
               Instagram<span className="brand-dot">.</span>
             </span>
           </button>
-          <div className="nav-label">YOUR SPACE</div>
+
           <nav aria-label="Main navigation">
             {navItems.map((item) => (
               <button
@@ -394,7 +401,11 @@ export default function App() {
                 {item === "Profile" ? (
                   <Avatar user={users[0]} size={25} />
                 ) : (
-                  <Icon name={item} />
+                  <Icon
+                    name={item === "Create" ? "Plus" : item}
+                    size={26}
+                    filled={item === "Home" && view === "Home"}
+                  />
                 )}
                 <span>{item}</span>
                 {item === "Messages" && <span className="nav-pill">3</span>}
@@ -414,60 +425,37 @@ export default function App() {
               <span>More</span>
             </button>
             <button
-              className="sidebar-profile user-link"
-              onClick={() => openProfile(0)}
+              className="nav-item"
+              onClick={() => setModal({ type: "meta" })}
+              aria-label="Also from Meta"
             >
-              <Avatar user={users[0]} />
-              <span>
-                <strong>Aditya Arora</strong>
-                <small>@aditya.arora</small>
-              </span>
-              <Icon name="Arrow" size={16} />
+              <Icon name="Grid" size={26} />
+              <span>Also from Meta</span>
             </button>
           </div>
         </aside>
         <div className="main-shell">
           <header className="topbar">
-            <div>
-              <span className="eyebrow">A LITTLE INSPIRATION, EVERY DAY</span>
-              <h1>
-                {view === "Home"
-                  ? "Your daily scroll"
-                  : view === "Profile"
-                    ? "A little about you"
-                    : view}
-              </h1>
-            </div>
+            <button
+              className="mobile-wordmark"
+              onClick={() => navigate("Home")}
+            >
+              Instagram
+            </button>
             <div className="top-actions">
               <button
-                className="icon-button mobile-more"
-                aria-label="More navigation"
-                onClick={() => setModal({ type: "settings" })}
-              >
-                <Icon name="More" />
-              </button>
-              <button
-                className="search-shortcut"
-                onClick={() => navigate("Search")}
-              >
-                <Icon name="Search" size={18} />
-                <span>Search your world</span>
-                <kbd>⌕</kbd>
-              </button>
-              <button
-                className="icon-button mobile-search"
-                onClick={() => navigate("Search")}
+                className="icon-button"
                 aria-label="Search"
+                onClick={() => navigate("Search")}
               >
                 <Icon name="Search" />
               </button>
               <button
-                className="primary new-post"
-                aria-label="Create post"
-                onClick={() => setModal({ type: "create" })}
+                className="icon-button"
+                aria-label="More navigation"
+                onClick={() => setModal({ type: "settings" })}
               >
-                <Icon name="Plus" size={17} />
-                <span>Create post</span>
+                <Icon name="More" />
               </button>
             </div>
           </header>
@@ -484,16 +472,6 @@ export default function App() {
               {view === "Home" && (
                 <>
                   <section className="stories" aria-label="Stories">
-                    <button
-                      className="story-item"
-                      onClick={() => setModal({ type: "create" })}
-                    >
-                      <span className="your-story">
-                        <Avatar user={users[0]} size={64} />
-                        <b>+</b>
-                      </span>
-                      <span>Your story</span>
-                    </button>
                     {users.slice(1, 9).map((u, i) => (
                       <button
                         className="story-item"
@@ -505,25 +483,6 @@ export default function App() {
                       </button>
                     ))}
                   </section>
-                  <div className="feed-tabs">
-                    <div>
-                      {["For you", "Following"].map((t) => (
-                        <button
-                          key={t}
-                          className={filter === t ? "selected" : ""}
-                          onClick={() => {
-                            setFilter(t);
-                            setLimit(6);
-                          }}
-                        >
-                          {t}
-                        </button>
-                      ))}
-                    </div>
-                    <span>
-                      <span className="live-dot" /> Fresh perspectives
-                    </span>
-                  </div>
                 </>
               )}
               {["Home", "Saved"].includes(view) && (
@@ -566,24 +525,13 @@ export default function App() {
               )}
               {["Search", "Explore"].includes(view) && (
                 <>
-                  <div className="explore-heading">
-                    <h2>
-                      {view === "Search"
-                        ? "Find your next inspiration"
-                        : "A world beyond your feed"}
-                    </h2>
-                    <p>
-                      New perspectives. Interesting people. Something worth
-                      saving.
-                    </p>
-                  </div>
                   <label className="search-field">
                     <Icon name="Search" />
                     <input
                       autoFocus={view === "Search"}
                       value={query}
                       onChange={(e) => setQuery(e.target.value)}
-                      placeholder="Search people, captions, places…"
+                      placeholder="Search"
                       aria-label="Search people and posts"
                     />
                     {query && (
@@ -596,18 +544,7 @@ export default function App() {
                       </button>
                     )}
                   </label>
-                  <div className="category-tabs">
-                    {categories.map((c) => (
-                      <button
-                        className={category === c ? "selected" : ""}
-                        onClick={() => setCategory(c)}
-                        key={c}
-                      >
-                        {c}
-                      </button>
-                    ))}
-                  </div>
-                  {view === "Search" && (
+                  {view === "Search" && query.trim() && (
                     <section className="people-results">
                       <h3>People</h3>
                       {users
@@ -835,10 +772,10 @@ export default function App() {
             </main>
             {!["Messages", "Profile", "Explore", "Search"].includes(view) && (
               <aside className="right-rail">
-                <UserRow user={users[0]} subtitle="Good to see you, Aditya ☀" />
+                <UserRow user={users[0]} subtitle="Aditya Arora" />
                 <section className="suggestions">
                   <div className="section-title">
-                    <h3>People to discover</h3>
+                    <h3>Suggested for you</h3>
                     <button
                       className="text-button dark-text"
                       onClick={() => navigate("Search")}
@@ -852,100 +789,81 @@ export default function App() {
                       key={u.id}
                       follow
                       subtitle={
-                        u.id % 2
-                          ? "Suggested for you"
-                          : "New perspectives await"
+                        u.id % 2 ? "Suggested for you" : "Suggested for you"
                       }
                     />
                   ))}
                 </section>
-                <section className="discovery-card">
-                  <span className="eyebrow">GO A LITTLE FURTHER</span>
-                  <h2>
-                    Your next favorite
-                    <br />
-                    is out there.
-                  </h2>
-                  <p>
-                    Step outside your circle.
-                    <br />
-                    Find something that moves you.
-                  </p>
-                  <button onClick={() => navigate("Explore")}>
-                    Explore the unexpected <Icon name="Arrow" size={17} />
-                  </button>
-                  <span className="orbit orbit-one" />
-                  <span className="orbit orbit-two" />
-                </section>
-                <div className="trending">
-                  <span className="eyebrow">IN THE SPOTLIGHT</span>
-                  {["Nature", "Art", "Travel"].map((c, i) => (
-                    <button
-                      key={c}
-                      onClick={() => {
-                        navigate("Explore");
-                        setCategory(c);
-                      }}
-                    >
-                      <span className="hash">#</span>
-                      <span>
-                        <strong>
-                          {
-                            [
-                              "thegreatoutdoors",
-                              "artofslowliving",
-                              "weekendwanderer",
-                            ][i]
-                          }
-                        </strong>
-                        <small>
-                          {
-                            [
-                              "Find your fresh air",
-                              "Make room for inspiration",
-                              "Take the scenic route",
-                            ][i]
-                          }
-                        </small>
-                      </span>
-                      <Icon name="Arrow" size={15} />
-                    </button>
-                  ))}
-                </div>
                 <footer>
                   <button onClick={() => setModal({ type: "about" })}>
-                    About this project
+                    About
                   </button>
                   <span> · </span>
                   <button onClick={() => setModal({ type: "credits" })}>
                     Image credits
                   </button>
-                  <p>Made for moments, big and small.</p>
-                  <small>© 2026 INSTAGRAM CLONE · INDEPENDENT DEMO</small>
+
+                  <small>© 2026 INSTAGRAM CLONE</small>
                 </footer>
               </aside>
             )}
           </div>
         </div>
+        {view !== "Messages" && (
+          <button
+            className="floating-messages"
+            onClick={() => navigate("Messages")}
+          >
+            <Icon name="Messages" size={26} />
+            <strong>Messages</strong>
+            <Avatar user={users[0]} size={28} />
+          </button>
+        )}
         {modal && (
           <Modal
             key={modal.type}
             title={
               {
-                create: "Create a moment",
-                post: "A closer look",
-                story: "A little glimpse",
-                settings: "Make yourself at home",
+                create: "Create new post",
+                post: "Post",
+                story: "Stories",
+                settings: "Settings",
                 about: "Made for moments",
-                credits: "Behind the images",
+                credits: "Image credits",
                 edit: "Edit your profile",
                 options: "Post options",
-                share: "Share this moment",
+                share: "Share post",
+                meta: "Also from Meta",
               }[modal.type]
             }
             close={() => setModal(null)}
             wide={modal.type === "post"}
           >
+            {modal.type === "meta" && (
+              <div className="modal-body settings">
+                <a
+                  href="https://www.meta.com/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Meta ↗
+                </a>
+                <a
+                  href="https://www.threads.com/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Threads ↗
+                </a>
+                <a
+                  href="https://www.facebook.com/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Facebook ↗
+                </a>
+              </div>
+            )}
             {modal.type === "post" && <Post post={modal.post} detailed />}
             {modal.type === "create" && (
               <Composer

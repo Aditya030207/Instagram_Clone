@@ -1,6 +1,6 @@
 # Instagram · Your daily scroll
 
-An independent Instagram-inspired React demo by Aditya Arora. A calm feed for photography, everyday moments, travel, and art. Not affiliated with Instagram or Meta.
+An independent Instagram-inspired React demo by Aditya Arora. A dark, screenshot-matched feed for photography, everyday moments, travel, and art. Not affiliated with Instagram or Meta.
 
 ## Run locally
 
@@ -16,7 +16,7 @@ Open the local URL printed by Vite. Production: `npm run build`, then `npm run p
 ## What works
 
 - Responsive sidebar and mobile navigation; every destination is implemented.
-- For-you/following feeds, searchable users/captions/places, and category-filtered Explore.
+- A photo feed, searchable users/captions/places, and a dense discovery grid.
 - 13 fictional profiles, 20 curated posts, stories, and a photo-story Reels view.
 - Likes, saves, follows, comments, post-link sharing, and profile bio editing.
 - A post composer with credited sample photos or JPG/PNG/WebP uploads up to 1.5 MB.

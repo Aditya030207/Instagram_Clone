@@ -14,3 +14,7 @@ Future scheduled runs must append the actual date, work completed, checks run, a
 ## October 14 — image-host verification fix
 
 The Art Institute image host returned HTTP 403 during final verification. Switched the four public-domain art images to The Met Open Access API, keeping per-image attribution and CC0 links. The Met image host returned HTTP 200.
+
+## October 14 — original Instagram appearance restored
+
+User requested visual fidelity to their Instagram screenshots. Removed custom headings, feed tabs, discovery promotions, topic chips, and the olive palette. Restored a dark background, original sidebar ordering, gradient photo stories, plain feed, compact suggestions, floating Messages button, and dense search grid. Updated the development plan to prevent future scheduled runs from adding unrelated UI. Fixed an undefined heading ID in empty states discovered during this change.
