@@ -75,3 +75,16 @@ test("malformed post fields are normalized before rendering", () => {
   assert.equal(posts[0].likes, 0);
   assert.equal(posts[0].source, "#");
 });
+
+// Missing/invalid preferences keep the requested dark default; an explicit
+// choice must survive the same storage read used during application startup.
+test("appearance defaults to dark and preserves either saved choice", () => {
+  assert.equal(readState({ getItem: () => null }).theme, "dark");
+  for (const theme of [undefined, null, "sepia", 0, {}]) {
+    assert.equal(readState({ getItem: () => JSON.stringify({ theme }) }).theme, "dark");
+  }
+  for (const theme of ["light", "dark"]) {
+    const saved = { ...defaultState, theme };
+    assert.equal(readState({ getItem: () => JSON.stringify(saved) }).theme, theme);
+  }
+});

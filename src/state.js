@@ -6,7 +6,7 @@ export const defaultState = {
   comments: {},
   posts: [],
   messages: {},
-  theme: "light",
+  theme: "dark",
   bio: "",
   read: false,
 };
@@ -71,7 +71,7 @@ export function validateState(value) {
               .map(([k, v]) => [k, v.filter((x) => typeof x === "string")]),
           )
         : {},
-    theme: value.theme === "dark" ? "dark" : "light",
+    theme: value.theme === "light" ? "light" : "dark",
     bio: typeof value.bio === "string" ? value.bio : "",
     read: value.read === true,
   };

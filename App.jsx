@@ -247,9 +247,9 @@ function Post({ post, detailed = false }) {
 export default function App() {
   const [state, setState] = useState(() => {
     try {
-      return { ...readState(window.localStorage), theme: "dark" };
+      return readState(window.localStorage);
     } catch {
-      return { ...readState(null), theme: "dark" };
+      return readState(null);
     }
   });
   const [view, setView] = useState("Home");

@@ -22,3 +22,10 @@ User requested visual fidelity to their Instagram screenshots. Removed custom he
 ## October 14 — demo content cleanup
 
 Replaced formulaic handles, motivational captions, repeated landscape avatars, uniform square crops, and all-user verification badges. Added credited stock profile photos, varied post proportions, casual captions, and ordinary UI labels. All profiles and interactions remain clearly identified as demonstrations in About.
+
+## October 14 — scheduled fix: remember appearance preference
+
+- Fixed application startup overriding every saved appearance with dark mode. New visits and missing/invalid preferences still default to dark, while an explicit light or dark choice now survives reloads.
+- Added regression coverage for both saved choices, first visits, and invalid theme values.
+- Validation: `npm test` passed all six tests; `npm run build` passed. Live browser validation was attempted but blocked by the browser URL security policy; no alternate browser route was attempted.
+- Prepared as one focused scheduled-work commit for main. No layout or README changes.
