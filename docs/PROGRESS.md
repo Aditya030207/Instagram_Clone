@@ -29,3 +29,10 @@ Replaced formulaic handles, motivational captions, repeated landscape avatars, u
 - Added regression coverage for both saved choices, first visits, and invalid theme values.
 - Validation: `npm test` passed all six tests; `npm run build` passed. Live browser validation was attempted but blocked by the browser URL security policy; no alternate browser route was attempted.
 - Prepared as one focused scheduled-work commit for main. No layout or README changes.
+
+## October 14 — scheduled fix: isolate image failure state
+
+- Found that `Photo` retained its failed state when Stories or Reels changed the image prop, so one failed request left later images stuck on the fallback.
+- Keyed the stateful image component by its URL. Each new image now starts a fresh loading/error lifecycle; rerenders of the same failed image still retain its fallback.
+- Validation: all six existing tests pass, production build passes, and `git diff --check` passes. Reviewed both Story and Reel call sites. These tests do not simulate browser image-error events. Live browser regression verification remains unavailable following the prior browser URL-policy denial; no workaround was attempted.
+- One focused scheduled-work change for main; no styling, README, or image-credit changes.

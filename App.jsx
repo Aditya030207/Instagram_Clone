@@ -33,6 +33,11 @@ function Avatar({ user, size = 40, story = false }) {
   );
 }
 function Photo({ post, ...props }) {
+  // A different image gets its own loading/error lifecycle. A failed story
+  // must not leave the next story (or reel) stuck on the fallback.
+  return <PhotoImage key={post.image} post={post} {...props} />;
+}
+function PhotoImage({ post, ...props }) {
   const [failed, setFailed] = useState(false);
   return failed ? (
     <div className="photo-fallback" role="img" aria-label={post.alt}>
