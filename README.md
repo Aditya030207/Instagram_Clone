@@ -32,7 +32,7 @@ The checked-in media catalog avoids an API request for every avatar/post on ever
 - [Lorem Picsum](https://picsum.photos/): photographer names and original photo links; photographs under the [Unsplash License](https://unsplash.com/license). These are freely licensed photographs, not a claim that all photos are copyright-free.
 - [Metropolitan Museum of Art API](https://metmuseum.github.io/): only records marked `isPublicDomain: true`, with [CC0](https://creativecommons.org/publicdomain/zero/1.0/) image rights, creator names, and artwork links.
 
-Every post links to its source; More → Image sources & licenses includes license details. Avatars are locally rendered initials, so real people are not presented as fictional users. Uploaded photos remain the uploader's responsibility.
+Every post links to its source; More → Image sources & licenses includes license details. Avatars use credited stock photos, existing project assets, or initials. Profile names are fictional; pictured people are not the account holders. Uploaded photos remain the uploader's responsibility.
 
 ## Validation
 

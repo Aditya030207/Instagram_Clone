@@ -18,3 +18,7 @@ The Art Institute image host returned HTTP 403 during final verification. Switch
 ## October 14 — original Instagram appearance restored
 
 User requested visual fidelity to their Instagram screenshots. Removed custom headings, feed tabs, discovery promotions, topic chips, and the olive palette. Restored a dark background, original sidebar ordering, gradient photo stories, plain feed, compact suggestions, floating Messages button, and dense search grid. Updated the development plan to prevent future scheduled runs from adding unrelated UI. Fixed an undefined heading ID in empty states discovered during this change.
+
+## October 14 — demo content cleanup
+
+Replaced formulaic handles, motivational captions, repeated landscape avatars, uniform square crops, and all-user verification badges. Added credited stock profile photos, varied post proportions, casual captions, and ordinary UI labels. All profiles and interactions remain clearly identified as demonstrations in About.

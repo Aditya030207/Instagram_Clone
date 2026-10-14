@@ -8,7 +8,7 @@ import React, {
 } from "react";
 import "./src/index.css";
 import Icon from "./src/components/Icon";
-import { users, initialPosts, categories } from "./src/data/feed";
+import { users, initialPosts, avatars } from "./src/data/feed";
 import { readState, storageKey } from "./src/state";
 
 function Avatar({ user, size = 40, story = false }) {
@@ -18,13 +18,15 @@ function Avatar({ user, size = 40, story = false }) {
       style={{ width: size, height: size, "--avatar-color": user.color }}
     >
       <span>
-        <img
-          src={`https://picsum.photos/id/${[1025, 1015, 1016, 1040, 1036, 1060, 1080, 1039, 1050, 1024, 1018, 1043, 1056][user.id]}/100/100`}
-          alt=""
-          onError={(e) => {
-            e.currentTarget.style.display = "none";
-          }}
-        />
+        {user.avatar && (
+          <img
+            src={user.avatar}
+            alt=""
+            onError={(e) => {
+              e.currentTarget.style.display = "none";
+            }}
+          />
+        )}
         <span className="avatar-initials">{user.initials}</span>
       </span>
     </span>
@@ -34,7 +36,7 @@ function Photo({ post, ...props }) {
   const [failed, setFailed] = useState(false);
   return failed ? (
     <div className="photo-fallback" role="img" aria-label={post.alt}>
-      A moment worth keeping<small>Photo unavailable · try again later</small>
+      Photo unavailable<small>Photo unavailable · try again later</small>
     </div>
   ) : (
     <img
@@ -81,6 +83,12 @@ function Modal({ title, children, close, wide = false }) {
   );
 }
 const FeedContext = createContext(null);
+const storyPosts = users
+  .slice(1, 9)
+  .map(
+    (user) =>
+      initialPosts.find((post) => post.userId === user.id) || initialPosts[0],
+  );
 function UserRow({ user, follow = false, subtitle }) {
   const { openProfile, state, toggle } = useContext(FeedContext);
   return (
@@ -115,11 +123,7 @@ function Post({ post, detailed = false }) {
           <Avatar user={user} story />
           <span>
             <strong>
-              {user.handle}{" "}
-              <span className="verified" aria-label="Demo creator">
-                ✓
-              </span>
-              <span className="post-time"> · {post.time}</span>
+              {user.handle} <span className="post-time"> · {post.time}</span>
             </strong>
             <small>{post.location}</small>
           </span>
@@ -190,13 +194,13 @@ function Post({ post, detailed = false }) {
         >
           {comments.length
             ? `View all ${comments.length} comments`
-            : "Start the conversation"}
+            : "Add a comment"}
         </button>
         {detailed && (
           <div className="comments">
             {comments.map((c, i) => (
               <p key={i}>
-                <strong>aditya.arora</strong> {c}
+                <strong>adiarora860</strong> {c}
               </p>
             ))}
           </div>
@@ -500,7 +504,7 @@ export default function App() {
                     {!visiblePosts.length &&
                       empty(
                         view === "Saved"
-                          ? "Keep a little inspiration"
+                          ? "Saved posts"
                           : "Your circle starts here",
                         view === "Saved"
                           ? "Tap the bookmark on any post to save it here."
@@ -511,14 +515,12 @@ export default function App() {
                         className="load-more"
                         onClick={() => setLimit((n) => n + 6)}
                       >
-                        More moments <Icon name="Plus" size={17} />
+                        Load more <Icon name="Plus" size={17} />
                       </button>
                     )}
                     {visiblePosts.length > 0 &&
                       visiblePosts.length <= limit && (
-                        <p className="feed-end">
-                          You’re all caught up. Go make a moment of your own. ✨
-                        </p>
+                        <p className="feed-end">You’re all caught up.</p>
                       )}
                   </div>
                 </>
@@ -618,7 +620,7 @@ export default function App() {
                   {profilePosts.length
                     ? grid(profilePosts)
                     : empty(
-                        "Your story starts with a moment",
+                        "No posts yet",
                         "Create your first post using the button above.",
                       )}
                 </>
@@ -626,7 +628,7 @@ export default function App() {
               {view === "Notifications" && (
                 <section className="activity">
                   <div className="section-title">
-                    <h2>You’re in good company</h2>
+                    <h2>Notifications</h2>
                     <span className="muted">Demo activity</span>
                   </div>
                   {users.slice(1, 8).map((u, i) => (
@@ -636,9 +638,7 @@ export default function App() {
                         <button onClick={() => openProfile(u.id)}>
                           <strong>{u.handle}</strong>
                         </button>{" "}
-                        {i % 2
-                          ? "liked a moment from your collection."
-                          : "started following your creative journey."}
+                        {i % 2 ? "liked your post." : "started following you."}
                         <small>{i + 1}h ago</small>
                       </p>
                       <button
@@ -669,7 +669,7 @@ export default function App() {
                           <strong>{u.name}</strong>
                           <small>
                             {state.messages[u.id]?.at(-1) ||
-                              "What’s inspiring you today?"}
+                              "Sent you a message"}
                           </small>
                         </span>
                       </button>
@@ -681,9 +681,7 @@ export default function App() {
                       subtitle="Demo conversation"
                     />
                     <div className="chat-bubbles">
-                      <p className="bubble">
-                        Hey! What’s inspiring you today? 🌿
-                      </p>
+                      <p className="bubble">hey, did you see this?</p>
                       {(state.messages[chatId] || []).map((m, i) => (
                         <p className="bubble own" key={i}>
                           {m}
@@ -764,7 +762,7 @@ export default function App() {
                         setReelIndex((i) => (i + 1) % initialPosts.length)
                       }
                     >
-                      Next moment <Icon name="Arrow" size={17} />
+                      Next <Icon name="Arrow" size={17} />
                     </button>
                   </div>
                 </section>
@@ -828,7 +826,7 @@ export default function App() {
                 post: "Post",
                 story: "Stories",
                 settings: "Settings",
-                about: "Made for moments",
+                about: "About",
                 credits: "Image credits",
                 edit: "Edit your profile",
                 options: "Post options",
@@ -872,7 +870,7 @@ export default function App() {
                   setModal(null);
                   navigate("Home");
                   setFilter("For you");
-                  setToast("Your moment is now in the feed");
+                  setToast("Post shared");
                 }}
               />
             )}
@@ -887,8 +885,8 @@ export default function App() {
                   ))}
                 </div>
                 <UserRow user={users[modal.index + 1]} />
-                <Photo post={initialPosts[modal.index]} />
-                <p>{initialPosts[modal.index].caption}</p>
+                <Photo post={storyPosts[modal.index]} />
+                <p>{storyPosts[modal.index].caption}</p>
                 <div className="reel-controls">
                   <button
                     className="secondary"
@@ -946,7 +944,7 @@ export default function App() {
                     navigate("Saved");
                   }}
                 >
-                  <Icon name="Saved" /> Your saved moments
+                  <Icon name="Saved" /> Saved
                 </button>
                 <button onClick={() => setModal({ type: "about" })}>
                   <Icon name="Explore" /> About & privacy
@@ -958,7 +956,7 @@ export default function App() {
             )}
             {modal.type === "about" && (
               <div className="modal-body prose">
-                <h3>A little inspiration, every day.</h3>
+                <h3>Instagram clone</h3>
                 <p>
                   An independent Instagram-inspired portfolio demo by Aditya
                   Arora. Not affiliated with Instagram or Meta.
@@ -983,6 +981,14 @@ export default function App() {
                   copyright-free. Displayed profile names are fictional and do
                   not identify the photographers.
                 </p>
+                {avatars.map((a) => (
+                  <p key={a.id}>
+                    <a href={a.source} target="_blank" rel="noreferrer">
+                      {a.author}
+                    </a>
+                    <small>Profile photo · Unsplash License</small>
+                  </p>
+                ))}
                 {initialPosts.map((p) => (
                   <p key={p.id}>
                     <a href={p.source} target="_blank" rel="noreferrer">
@@ -1042,7 +1048,7 @@ export default function App() {
                   <Icon name="Saved" />
                   {state.saved.includes(modal.post.id)
                     ? "Remove from saved"
-                    : "Save this moment"}
+                    : "Save post"}
                 </button>
                 <button onClick={() => openProfile(modal.post.userId)}>
                   <Icon name="Profile" /> Visit profile
@@ -1134,7 +1140,7 @@ function Composer({ publish }) {
         });
       }}
     >
-      <p className="muted">Pick a credited image or add a photo of your own.</p>
+      <p className="muted">Select a photo.</p>
       <div className="composer-preview">
         <Photo key={selected.image} post={selected} />
       </div>
@@ -1168,18 +1174,14 @@ function Composer({ publish }) {
         Caption
         <textarea
           name="caption"
-          placeholder="What’s the story behind this moment?"
+          placeholder="Write a caption…"
           maxLength={1500}
           required
         />
       </label>
       <label>
         Location
-        <input
-          name="location"
-          placeholder="Somewhere worth remembering"
-          maxLength={80}
-        />
+        <input name="location" placeholder="Add location" maxLength={80} />
       </label>
       <label>
         Image description
@@ -1191,7 +1193,7 @@ function Composer({ publish }) {
       </label>
       <p className="muted">This demo saves posts in your browser.</p>
       <button className="primary" disabled={loading}>
-        {loading ? "Reading photo…" : "Share your moment"}
+        {loading ? "Reading photo…" : "Share"}
       </button>
     </form>
   );
