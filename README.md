@@ -43,7 +43,3 @@ npm audit
 ```
 
 Tests cover malformed/unavailable storage, interaction-state persistence, unsafe local post URLs, and media attribution integrity. Manual browser checks cover likes/saves across reloads, comments, search, post creation, local conversations, stories, navigation, and responsive layout.
-
-## Scheduled development
-
-The Codex chat automation is configured for five daily work windows, October 14–20, 2026, at 09:00, 12:00, 15:00, 18:00, and 21:00 Asia/Kolkata. See [development plan](docs/DEVELOPMENT_PLAN.md) and [progress log](docs/PROGRESS.md). Each run should make one meaningful, tested improvement and commit/push it. No empty or backdated commits. Execution requires the local Codex scheduler and repository to be available; blocked or missed runs do not guarantee commits. The automation is managed in Codex, not a GitHub Actions schedule.
