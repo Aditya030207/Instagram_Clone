@@ -61,3 +61,9 @@ Replaced formulaic handles, motivational captions, repeated landscape avatars, u
 - Follow buttons in user lists and profiles previously exposed only generic Follow/Following labels, without identifying their account or conveying a toggle state.
 - Both controls now expose a stable account-specific accessible name and `aria-pressed` from the same following state used by their click handlers. Visible labels and layout are unchanged.
 - Validation: all ten existing tests, production build, and `git diff --check` pass. Reviewed both follow-control call sites. These tests do not verify screen-reader announcements; live browser verification remains unavailable following the earlier browser URL-policy denial, and no workaround was attempted.
+
+## October 15 — scheduled fix: prevent competing photo selections
+
+- Found that the composer allowed choosing another upload or stock photo while FileReader was still reading the first upload. Its later callback could overwrite the newer selection, leaving the wrong photo ready to share.
+- Temporarily disabled both photo-selection controls while reading, with a matching guard in the upload handler. Existing success/error handlers re-enable selection, and Share remains disabled during reading. No layout or content changes.
+- Validation: all ten existing tests, production build, and `git diff --check` pass. Reviewed both selection paths and reader completion/error handlers. Existing tests do not simulate asynchronous file selection; live browser verification remains unavailable following the earlier browser URL-policy denial, with no workaround attempted.

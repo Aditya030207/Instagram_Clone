@@ -1103,7 +1103,7 @@ function Composer({ publish }) {
   const [uploadError, setUploadError] = useState("");
   const [loading, setLoading] = useState(false);
   async function upload(file) {
-    if (!file) return;
+    if (!file || loading) return;
     if (
       !["image/jpeg", "image/png", "image/webp"].includes(file.type) ||
       file.size > 1500000
@@ -1162,6 +1162,7 @@ function Composer({ publish }) {
             key={p.id}
             aria-label={`Choose ${p.location}`}
             aria-pressed={selected.image === p.image}
+            disabled={loading}
             onClick={() => setSelected(p)}
           >
             <Photo post={p} />
@@ -1173,6 +1174,7 @@ function Composer({ publish }) {
         <input
           type="file"
           accept="image/jpeg,image/png,image/webp"
+          disabled={loading}
           onChange={(e) => upload(e.target.files[0])}
         />
       </label>
