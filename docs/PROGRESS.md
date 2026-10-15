@@ -49,3 +49,9 @@ Replaced formulaic handles, motivational captions, repeated landscape avatars, u
 - Found that deleting an uploaded post removed the photo, likes, and saved entry but left all of its comments in persistent local storage.
 - The existing delete action now removes those comments too, preserving other posts and activity. No appearance changes.
 - Validation: all ten tests pass, including deletion, storage round-trip, preservation of unrelated activity, and repeated deletion; production build and `git diff --check` pass. Reviewed the existing own-post-only delete action. Live browser verification remains unavailable following the earlier browser URL-policy denial; no workaround was attempted.
+
+## October 15 — dialog dismissal fix
+
+- Found that the shared dialog treated clicks on its own interior padding as backdrop clicks, closing the composer or other dialogs unexpectedly.
+- Dismissal now checks that the click is outside the dialog's bounds. Interior blank space stays safe; the close button and native Escape handler remain available. No visual changes.
+- Validation: all ten existing tests pass, production build and `git diff --check` pass. Reviewed the shared dialog handler; these tests do not exercise browser click geometry. Live browser verification remains unavailable following the earlier browser URL-policy denial; no workaround was attempted.
