@@ -36,3 +36,10 @@ Replaced formulaic handles, motivational captions, repeated landscape avatars, u
 - Keyed the stateful image component by its URL. Each new image now starts a fresh loading/error lifecycle; rerenders of the same failed image still retain its fallback.
 - Validation: all six existing tests pass, production build passes, and `git diff --check` passes. Reviewed both Story and Reel call sites. These tests do not simulate browser image-error events. Live browser regression verification remains unavailable following the prior browser URL-policy denial; no workaround was attempted.
 - One focused scheduled-work change for main; no styling, README, or image-credit changes.
+
+## October 15 — scheduled fix: consistent search matching
+
+- Fixed padded or whitespace-only queries producing inconsistent people and post results. Both now share trimmed, case-insensitive matching; posts also match their author's display name, as people results already did.
+- Missing metadata no longer becomes searchable as the literal word `undefined`.
+- Validation: all nine tests pass, including three search regression tests; production build and `git diff --check` pass. Live browser verification remains unavailable following the earlier browser URL-policy denial; no workaround was attempted.
+- One focused scheduled-work change for main. Appearance, photo credits, and README are unchanged.

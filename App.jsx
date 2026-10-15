@@ -10,6 +10,7 @@ import "./src/index.css";
 import Icon from "./src/components/Icon";
 import { users, initialPosts, avatars } from "./src/data/feed";
 import { readState, storageKey } from "./src/state";
+import { matchesSearch } from "./src/search";
 
 function Avatar({ user, size = 40, story = false }) {
   return (
@@ -323,9 +324,10 @@ export default function App() {
   const matchingPosts = posts.filter(
     (p) =>
       (category === "All" || p.category === category) &&
-      `${p.caption} ${p.category} ${users[p.userId]?.handle} ${p.location}`
-        .toLowerCase()
-        .includes(query.toLowerCase()),
+      matchesSearch(
+        query, p.caption, p.category, users[p.userId]?.handle,
+        users[p.userId]?.name, p.location,
+      ),
   );
   const visiblePosts = matchingPosts
     .filter((p) => view !== "Saved" || state.saved.includes(p.id))
@@ -556,9 +558,7 @@ export default function App() {
                       <h3>People</h3>
                       {users
                         .filter((u) =>
-                          `${u.handle} ${u.name}`
-                            .toLowerCase()
-                            .includes(query.toLowerCase()),
+                          matchesSearch(query, u.handle, u.name),
                         )
                         .slice(0, 6)
                         .map((u) => (
