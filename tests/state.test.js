@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
-import { defaultState, readState, validateState } from "../src/state.js";
+import { defaultState, deletePost, readState, validateState } from "../src/state.js";
 test("unavailable or corrupted storage starts safely", () => {
   assert.deepEqual(readState(null), defaultState);
   assert.deepEqual(
@@ -13,6 +13,29 @@ test("unavailable or corrupted storage starts safely", () => {
     defaultState,
   );
   assert.deepEqual(readState({ getItem: () => "{broken" }), defaultState);
+});
+
+test("deleting a post removes its persisted comments and preserves other activity", () => {
+  const post = (id) => ({ id, caption: "hello", image: "https://example.com/photo.jpg" });
+  const before = validateState({
+    ...defaultState,
+    posts: [post("deleted"), post("kept")],
+    liked: ["deleted", "kept"],
+    saved: ["deleted", "kept"],
+    comments: { deleted: ["remove me"], kept: ["keep me"] },
+    messages: { 1: ["hello"] },
+  });
+  const snapshot = structuredClone(before);
+  const after = deletePost(before, "deleted");
+  assert.deepEqual(after.posts.map((p) => p.id), ["kept"]);
+  assert.deepEqual(after.comments, { kept: ["keep me"] });
+  assert.deepEqual(after.liked, ["kept"]);
+  assert.deepEqual(after.saved, ["kept"]);
+  assert.deepEqual(after.messages, before.messages);
+  assert.deepEqual(after.following, before.following);
+  assert.deepEqual(before, snapshot);
+  assert.deepEqual(readState({ getItem: () => JSON.stringify(after) }), after);
+  assert.deepEqual(deletePost(after, "deleted"), after);
 });
 test("user interactions survive a storage round trip", () => {
   const saved = {

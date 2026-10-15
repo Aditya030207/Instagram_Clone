@@ -9,7 +9,7 @@ import React, {
 import "./src/index.css";
 import Icon from "./src/components/Icon";
 import { users, initialPosts, avatars } from "./src/data/feed";
-import { readState, storageKey } from "./src/state";
+import { deletePost, readState, storageKey } from "./src/state";
 import { matchesSearch } from "./src/search";
 
 function Avatar({ user, size = 40, story = false }) {
@@ -1065,12 +1065,7 @@ export default function App() {
                   <button
                     className="danger"
                     onClick={() => {
-                      setState((s) => ({
-                        ...s,
-                        posts: s.posts.filter((p) => p.id !== modal.post.id),
-                        saved: s.saved.filter((id) => id !== modal.post.id),
-                        liked: s.liked.filter((id) => id !== modal.post.id),
-                      }));
+                      setState((s) => deletePost(s, modal.post.id));
                       setModal(null);
                       setToast("Post deleted");
                     }}

@@ -43,3 +43,9 @@ Replaced formulaic handles, motivational captions, repeated landscape avatars, u
 - Missing metadata no longer becomes searchable as the literal word `undefined`.
 - Validation: all nine tests pass, including three search regression tests; production build and `git diff --check` pass. Live browser verification remains unavailable following the earlier browser URL-policy denial; no workaround was attempted.
 - One focused scheduled-work change for main. Appearance, photo credits, and README are unchanged.
+
+## October 15 — scheduled fix: remove deleted posts' comments
+
+- Found that deleting an uploaded post removed the photo, likes, and saved entry but left all of its comments in persistent local storage.
+- The existing delete action now removes those comments too, preserving other posts and activity. No appearance changes.
+- Validation: all ten tests pass, including deletion, storage round-trip, preservation of unrelated activity, and repeated deletion; production build and `git diff --check` pass. Reviewed the existing own-post-only delete action. Live browser verification remains unavailable following the earlier browser URL-policy denial; no workaround was attempted.

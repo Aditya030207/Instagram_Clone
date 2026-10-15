@@ -10,6 +10,17 @@ export const defaultState = {
   bio: "",
   read: false,
 };
+export function deletePost(state, postId) {
+  const comments = { ...state.comments };
+  delete comments[postId];
+  return {
+    ...state,
+    posts: state.posts.filter((post) => post.id !== postId),
+    saved: state.saved.filter((id) => id !== postId),
+    liked: state.liked.filter((id) => id !== postId),
+    comments,
+  };
+}
 export function validateState(value) {
   if (!value || typeof value !== "object") return { ...defaultState };
   return {
