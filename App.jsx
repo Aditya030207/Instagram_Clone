@@ -116,6 +116,8 @@ function UserRow({ user, follow = false, subtitle }) {
       {follow && (
         <button
           className={`text-button ${state.following.includes(user.id) ? "muted" : ""}`}
+          aria-label={`Follow ${user.handle}`}
+          aria-pressed={state.following.includes(user.id)}
           onClick={() => toggle("following", user.id)}
         >
           {state.following.includes(user.id) ? "Following" : "Follow"}
@@ -617,6 +619,8 @@ export default function App() {
                       ) : (
                         <button
                           className="primary"
+                          aria-label={`Follow ${profile.handle}`}
+                          aria-pressed={state.following.includes(profileId)}
                           onClick={() => toggle("following", profileId)}
                         >
                           {state.following.includes(profileId)

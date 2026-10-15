@@ -55,3 +55,9 @@ Replaced formulaic handles, motivational captions, repeated landscape avatars, u
 - Found that the shared dialog treated clicks on its own interior padding as backdrop clicks, closing the composer or other dialogs unexpectedly.
 - Dismissal now checks that the click is outside the dialog's bounds. Interior blank space stays safe; the close button and native Escape handler remain available. No visual changes.
 - Validation: all ten existing tests pass, production build and `git diff --check` pass. Reviewed the shared dialog handler; these tests do not exercise browser click geometry. Live browser verification remains unavailable following the earlier browser URL-policy denial; no workaround was attempted.
+
+## October 15 — scheduled fix: accessible follow controls
+
+- Follow buttons in user lists and profiles previously exposed only generic Follow/Following labels, without identifying their account or conveying a toggle state.
+- Both controls now expose a stable account-specific accessible name and `aria-pressed` from the same following state used by their click handlers. Visible labels and layout are unchanged.
+- Validation: all ten existing tests, production build, and `git diff --check` pass. Reviewed both follow-control call sites. These tests do not verify screen-reader announcements; live browser verification remains unavailable following the earlier browser URL-policy denial, and no workaround was attempted.
