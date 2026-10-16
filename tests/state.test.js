@@ -99,6 +99,19 @@ test("malformed post fields are normalized before rendering", () => {
   assert.equal(posts[0].source, "#");
 });
 
+test("shared catalog photos retain license metadata after reload", () => {
+  const media = JSON.parse(
+    readFileSync(new URL("../src/data/media.json", import.meta.url)),
+  );
+  for (const photo of media) {
+    const saved = { ...defaultState, posts: [{ ...photo, caption: "Shared photo" }] };
+    const restored = readState({ getItem: () => JSON.stringify(saved) }).posts[0];
+    for (const field of ["author", "provider", "source", "title", "license", "licenseUrl"]) {
+      assert.equal(restored[field], photo[field], `${photo.id}: ${field}`);
+    }
+  }
+});
+
 // Missing/invalid preferences keep the requested dark default; an explicit
 // choice must survive the same storage read used during application startup.
 test("appearance defaults to dark and preserves either saved choice", () => {

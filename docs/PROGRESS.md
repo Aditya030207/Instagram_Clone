@@ -85,3 +85,9 @@ Replaced formulaic handles, motivational captions, repeated landscape avatars, u
 - Found that shared post URLs were read only at startup. Opening a different post link in an already-loaded tab changes the URL fragment without reloading, so the linked post did not open.
 - Added a hash-change listener that resolves the current post catalog, including local uploads, and opens valid linked posts. Unknown IDs are ignored. Listener cleanup prevents duplicate subscriptions; existing startup handling is preserved.
 - Validation: all ten existing tests, production build, and `git diff --check` pass. Reviewed startup handling, event cleanup, and current-upload dependencies. Existing tests do not simulate browser hash navigation; live browser verification remains unavailable following the earlier browser URL-policy denial, with no workaround attempted. No visual changes.
+
+## October 16 — scheduled fix: preserve shared photo license metadata
+
+- Found that restoring locally created posts discarded title, license, and license URL from catalog photos selected in the composer, although author/source credits survived.
+- State validation now retains those text fields and HTTPS license links. Uploaded photos without license metadata remain supported.
+- Validation: all eleven tests pass, including a storage round-trip across all twenty catalog photos checking author, provider, source, title, license, and license URL. Production build and `git diff --check` pass. Live browser verification remains unavailable following the earlier browser URL-policy denial; no workaround was attempted. No visual changes.

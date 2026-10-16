@@ -68,6 +68,12 @@ export function validateState(value) {
             author: typeof p.author === "string" ? p.author : "You",
             provider:
               typeof p.provider === "string" ? p.provider : "Your upload",
+            title: typeof p.title === "string" ? p.title : undefined,
+            license: typeof p.license === "string" ? p.license : undefined,
+            licenseUrl:
+              typeof p.licenseUrl === "string" && p.licenseUrl.startsWith("https://")
+                ? p.licenseUrl
+                : undefined,
             source:
               typeof p.source === "string" && p.source.startsWith("https://")
                 ? p.source
