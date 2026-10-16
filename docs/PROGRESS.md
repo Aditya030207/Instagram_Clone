@@ -91,3 +91,9 @@ Replaced formulaic handles, motivational captions, repeated landscape avatars, u
 - Found that restoring locally created posts discarded title, license, and license URL from catalog photos selected in the composer, although author/source credits survived.
 - State validation now retains those text fields and HTTPS license links. Uploaded photos without license metadata remain supported.
 - Validation: all eleven tests pass, including a storage round-trip across all twenty catalog photos checking author, provider, source, title, license, and license URL. Production build and `git diff --check` pass. Live browser verification remains unavailable following the earlier browser URL-policy denial; no workaround was attempted. No visual changes.
+
+## October 16 — scheduled fix: isolate post dialogs by post identity
+
+- Found that switching shared links while a post dialog was open reused its uncontrolled comment input for the next post. A draft intended for the earlier post could then be submitted to the newly opened post.
+- Keyed detailed posts by post ID so switching posts starts a fresh comment field. Also restricted the post's DOM anchor ID to its feed instance, avoiding duplicate IDs when the same post is open in a dialog.
+- Validation: all eleven existing tests, production build, and `git diff --check` pass. Reviewed feed and dialog call sites and hash-based switching. Existing tests do not simulate dialog draft switching; live browser verification remains unavailable following the earlier browser URL-policy denial, with no workaround attempted. No visual changes.

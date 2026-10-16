@@ -132,7 +132,7 @@ function Post({ post, detailed = false }) {
   const user = users[post.userId] || users[0];
   const comments = state.comments[post.id] || [];
   return (
-    <article className="post" id={`post-${post.id}`}>
+    <article className="post" id={detailed ? undefined : `post-${post.id}`}>
       <header className="post-head">
         <button className="user-link" onClick={() => openProfile(user.id)}>
           <Avatar user={user} story />
@@ -898,7 +898,9 @@ export default function App() {
                 </a>
               </div>
             )}
-            {modal.type === "post" && <Post post={modal.post} detailed />}
+            {modal.type === "post" && (
+              <Post key={modal.post.id} post={modal.post} detailed />
+            )}
             {modal.type === "create" && (
               <Composer
                 publish={(post) => {
