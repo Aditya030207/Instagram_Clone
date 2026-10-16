@@ -368,7 +368,12 @@ export default function App() {
         >
           <Photo post={p} />
           <span>
-            <Icon name="Notifications" size={17} /> {p.likes.toLocaleString()}
+            <Icon
+              name="Notifications"
+              size={17}
+              filled={state.liked.includes(p.id)}
+            />{" "}
+            {(p.likes + Number(state.liked.includes(p.id))).toLocaleString()}
           </span>
         </button>
       ))}

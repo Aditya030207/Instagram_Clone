@@ -73,3 +73,9 @@ Replaced formulaic handles, motivational captions, repeated landscape avatars, u
 - Found that the uncontrolled message field retained the same draft when switching contacts, allowing text intended for one conversation to be submitted in another.
 - Bound the field to per-contact draft state. Switching contacts now shows that contact's draft; submitting clears only the active draft. Drafts remain in memory for the current page session, and messaging remains local-only.
 - Validation: all ten existing tests, production build, and `git diff --check` pass. Reviewed contact switching and submission against the same chat ID. The existing tests do not exercise React input switching; live browser verification remains unavailable following the earlier browser URL-policy denial, with no workaround attempted. Layout and photo credits are unchanged.
+
+## October 16 — scheduled fix: consistent likes in photo grids
+
+- Found that liking a post updated its feed/dialog count but Search, Explore, and profile grid overlays continued to show the original count.
+- Grid overlays now include the current user's like and fill the heart from the same persisted state used by the post controls. Unliking returns the original count. Layout and photo credits are preserved.
+- Validation: all ten existing tests, production build, and `git diff --check` pass. Compared grid and post count expressions and their shared state; existing tests do not exercise rendered grid updates. Live browser verification remains unavailable following the earlier browser URL-policy denial; no workaround was attempted.
