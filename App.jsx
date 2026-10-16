@@ -331,6 +331,15 @@ export default function App() {
     const post = posts.find((p) => p.id === id);
     if (post) setModal({ type: "post", post });
   }, []);
+  useEffect(() => {
+    const openSharedPost = () => {
+      const id = new URLSearchParams(location.hash.slice(1)).get("post");
+      const post = [...state.posts, ...initialPosts].find((p) => p.id === id);
+      if (post) setModal({ type: "post", post });
+    };
+    window.addEventListener("hashchange", openSharedPost);
+    return () => window.removeEventListener("hashchange", openSharedPost);
+  }, [state.posts]);
   const matchingPosts = posts.filter(
     (p) =>
       (category === "All" || p.category === category) &&

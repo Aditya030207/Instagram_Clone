@@ -79,3 +79,9 @@ Replaced formulaic handles, motivational captions, repeated landscape avatars, u
 - Found that liking a post updated its feed/dialog count but Search, Explore, and profile grid overlays continued to show the original count.
 - Grid overlays now include the current user's like and fill the heart from the same persisted state used by the post controls. Unliking returns the original count. Layout and photo credits are preserved.
 - Validation: all ten existing tests, production build, and `git diff --check` pass. Compared grid and post count expressions and their shared state; existing tests do not exercise rendered grid updates. Live browser verification remains unavailable following the earlier browser URL-policy denial; no workaround was attempted.
+
+## October 16 — scheduled fix: open shared links in an existing tab
+
+- Found that shared post URLs were read only at startup. Opening a different post link in an already-loaded tab changes the URL fragment without reloading, so the linked post did not open.
+- Added a hash-change listener that resolves the current post catalog, including local uploads, and opens valid linked posts. Unknown IDs are ignored. Listener cleanup prevents duplicate subscriptions; existing startup handling is preserved.
+- Validation: all ten existing tests, production build, and `git diff --check` pass. Reviewed startup handling, event cleanup, and current-upload dependencies. Existing tests do not simulate browser hash navigation; live browser verification remains unavailable following the earlier browser URL-policy denial, with no workaround attempted. No visual changes.
