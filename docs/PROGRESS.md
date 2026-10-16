@@ -97,3 +97,9 @@ Replaced formulaic handles, motivational captions, repeated landscape avatars, u
 - Found that switching shared links while a post dialog was open reused its uncontrolled comment input for the next post. A draft intended for the earlier post could then be submitted to the newly opened post.
 - Keyed detailed posts by post ID so switching posts starts a fresh comment field. Also restricted the post's DOM anchor ID to its feed instance, avoiding duplicate IDs when the same post is open in a dialog.
 - Validation: all eleven existing tests, production build, and `git diff --check` pass. Reviewed feed and dialog call sites and hash-based switching. Existing tests do not simulate dialog draft switching; live browser verification remains unavailable following the earlier browser URL-policy denial, with no workaround attempted. No visual changes.
+
+## October 17 — scheduled fix: recover avatars when switching accounts
+
+- Found that the avatar error handler hides a failed image with an inline style. React reused that hidden image when a shared profile/conversation header switched to another user's avatar, leaving even a working photo invisible.
+- Keyed avatar images by their URL so a different photo gets a fresh element without the previous failure's hidden style. Initials remain the fallback for failed requests.
+- Validation: all eleven existing tests, production build, and `git diff --check` pass. Reviewed shared avatar use in profile and conversation headers. Existing tests do not simulate image errors or React DOM reuse; live browser verification remains unavailable following the earlier browser URL-policy denial, with no workaround attempted. Layout and photo credits are unchanged.

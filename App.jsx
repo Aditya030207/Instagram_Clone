@@ -21,6 +21,7 @@ function Avatar({ user, size = 40, story = false }) {
       <span>
         {user.avatar && (
           <img
+            key={user.avatar}
             src={user.avatar}
             alt=""
             onError={(e) => {
