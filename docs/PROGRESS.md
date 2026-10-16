@@ -67,3 +67,9 @@ Replaced formulaic handles, motivational captions, repeated landscape avatars, u
 - Found that the composer allowed choosing another upload or stock photo while FileReader was still reading the first upload. Its later callback could overwrite the newer selection, leaving the wrong photo ready to share.
 - Temporarily disabled both photo-selection controls while reading, with a matching guard in the upload handler. Existing success/error handlers re-enable selection, and Share remains disabled during reading. No layout or content changes.
 - Validation: all ten existing tests, production build, and `git diff --check` pass. Reviewed both selection paths and reader completion/error handlers. Existing tests do not simulate asynchronous file selection; live browser verification remains unavailable following the earlier browser URL-policy denial, with no workaround attempted.
+
+## October 16 — scheduled fix: keep message drafts with their conversation
+
+- Found that the uncontrolled message field retained the same draft when switching contacts, allowing text intended for one conversation to be submitted in another.
+- Bound the field to per-contact draft state. Switching contacts now shows that contact's draft; submitting clears only the active draft. Drafts remain in memory for the current page session, and messaging remains local-only.
+- Validation: all ten existing tests, production build, and `git diff --check` pass. Reviewed contact switching and submission against the same chat ID. The existing tests do not exercise React input switching; live browser verification remains unavailable following the earlier browser URL-policy denial, with no workaround attempted. Layout and photo credits are unchanged.

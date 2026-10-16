@@ -274,6 +274,7 @@ export default function App() {
   const [modal, setModal] = useState(null);
   const [profileId, setProfileId] = useState(0);
   const [chatId, setChatId] = useState(1);
+  const [chatDrafts, setChatDrafts] = useState({});
   const [toast, setToast] = useState("");
   const [limit, setLimit] = useState(6);
   const [storageError, setStorageError] = useState(false);
@@ -718,11 +719,16 @@ export default function App() {
                               [chatId]: [...(s.messages[chatId] || []), value],
                             },
                           }));
-                        input.value = "";
+                        setChatDrafts((drafts) => ({ ...drafts, [chatId]: "" }));
                       }}
                     >
                       <input
                         name="message"
+                        value={chatDrafts[chatId] || ""}
+                        onChange={(e) => {
+                          const value = e.target.value;
+                          setChatDrafts((drafts) => ({ ...drafts, [chatId]: value }));
+                        }}
                         placeholder="Write a message…"
                         aria-label="Message"
                         required
