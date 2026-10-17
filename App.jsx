@@ -271,6 +271,7 @@ export default function App() {
   const [view, setView] = useState("Home");
   const [filter, setFilter] = useState("For you");
   const [query, setQuery] = useState("");
+  const searchInput = useRef(null);
   const [category, setCategory] = useState("All");
   const [modal, setModal] = useState(null);
   const [profileId, setProfileId] = useState(0);
@@ -280,6 +281,9 @@ export default function App() {
   const [limit, setLimit] = useState(6);
   const [storageError, setStorageError] = useState(false);
   const [reelIndex, setReelIndex] = useState(0);
+  useEffect(() => {
+    if (view === "Search") searchInput.current?.focus();
+  }, [view]);
   useEffect(() => {
     try {
       localStorage.setItem(storageKey, JSON.stringify(state));
@@ -567,7 +571,7 @@ export default function App() {
                   <label className="search-field">
                     <Icon name="Search" />
                     <input
-                      autoFocus={view === "Search"}
+                      ref={searchInput}
                       value={query}
                       onChange={(e) => setQuery(e.target.value)}
                       placeholder="Search"

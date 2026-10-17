@@ -115,3 +115,9 @@ Replaced formulaic handles, motivational captions, repeated landscape avatars, u
 - Found that focused search, comment, message, and composer fields still used a hardcoded olive outline from the superseded redesign.
 - Input and textarea focus outlines now use the same theme accent as keyboard-focused buttons and links, matching the restored Instagram palette in both appearances while retaining a visible focus indicator.
 - Validation: all eleven existing tests, production build, and `git diff --check` pass. Reviewed the focus selector and final dark/light accent definitions. Live visual verification remains unavailable following the earlier browser URL-policy denial; no workaround was attempted. Layout and content are unchanged.
+
+## October 17 — scheduled fix: focus search when entering from Explore
+
+- Found that Search and Explore reuse the same input element. Changing its `autoFocus` prop did not focus an already-mounted field when entering Search from Explore, leaving keyboard input on the navigation control.
+- Search now focuses its field through a ref when the view changes to Search. The effect does not run while typing, so ordinary input and focus movement remain available.
+- Validation: all eleven existing tests, production build, and `git diff --check` pass. Reviewed the shared Search/Explore branch and view-transition effect. Existing tests do not verify browser focus; live browser verification remains unavailable following the earlier browser URL-policy denial, with no workaround attempted. Layout and content are unchanged.
