@@ -109,3 +109,9 @@ Replaced formulaic handles, motivational captions, repeated landscape avatars, u
 - Found that navigation explicitly requested smooth JavaScript scrolling even when the user requested reduced motion. The existing CSS reduced-motion rule did not change that explicit API argument.
 - Navigation now reads the current system preference and scrolls instantly when reduced motion is enabled, retaining smooth scrolling otherwise. Reading at navigation time also respects preference changes during the session.
 - Validation: all eleven existing tests, production build, and `git diff --check` pass. Reviewed the navigation path and existing CSS preference rule. Existing tests do not exercise browser scrolling or system preferences; live browser verification remains unavailable following the earlier browser URL-policy denial, with no workaround attempted. Layout and content are unchanged.
+
+## October 17 — scheduled fix: remove leftover olive input focus color
+
+- Found that focused search, comment, message, and composer fields still used a hardcoded olive outline from the superseded redesign.
+- Input and textarea focus outlines now use the same theme accent as keyboard-focused buttons and links, matching the restored Instagram palette in both appearances while retaining a visible focus indicator.
+- Validation: all eleven existing tests, production build, and `git diff --check` pass. Reviewed the focus selector and final dark/light accent definitions. Live visual verification remains unavailable following the earlier browser URL-policy denial; no workaround was attempted. Layout and content are unchanged.

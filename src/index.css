@@ -95,7 +95,7 @@ a:focus-visible {
 }
 input:focus,
 textarea:focus {
-  outline: 2px solid #95a67e;
+  outline: 2px solid var(--accent);
   outline-offset: 1px;
 }
 button:hover:not(:disabled) {
