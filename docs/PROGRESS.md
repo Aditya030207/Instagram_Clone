@@ -121,3 +121,9 @@ Replaced formulaic handles, motivational captions, repeated landscape avatars, u
 - Found that Search and Explore reuse the same input element. Changing its `autoFocus` prop did not focus an already-mounted field when entering Search from Explore, leaving keyboard input on the navigation control.
 - Search now focuses its field through a ref when the view changes to Search. The effect does not run while typing, so ordinary input and focus movement remain available.
 - Validation: all eleven existing tests, production build, and `git diff --check` pass. Reviewed the shared Search/Explore branch and view-transition effect. Existing tests do not verify browser focus; live browser verification remains unavailable following the earlier browser URL-policy denial, with no workaround attempted. Layout and content are unchanged.
+
+## October 17 — scheduled fix: find handles with an @ prefix
+
+- Found that searching a recognizable handle such as `@riya.s_` returned no matching person or authored posts because stored handles omit the @ prefix.
+- Shared matching now accepts an optional leading @ while preserving literal caption matches and existing case/whitespace handling. A lone @ is not treated as an empty query.
+- Validation: all twelve tests pass, including prefixed handle searches for people/posts, unmatched handles, a lone @, and literal mentions. Production build and `git diff --check` pass. Live browser verification remains unavailable following the earlier browser URL-policy denial; no workaround was attempted. Layout and content are unchanged.

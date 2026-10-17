@@ -19,3 +19,11 @@ test("missing metadata is not searchable as literal undefined", () => {
   assert.equal(matchesSearch("undefined", "morning", undefined), false);
   assert.equal(matchesSearch("mountains", "Morning in the mountains", undefined), true);
 });
+
+test("handles copied with an @ prefix find people and their posts", () => {
+  assert.equal(matchesSearch(" @RIYA.S_ ", "riya.s_", "Riya"), true);
+  assert.equal(matchesSearch("@riya.s_", "morning", "riya.s_", "Riya"), true);
+  assert.equal(matchesSearch("@arjun", "riya.s_", "Riya"), false);
+  assert.equal(matchesSearch("@", "riya.s_"), false);
+  assert.equal(matchesSearch("@riya.s_", "with @riya.s_ today"), true);
+});
