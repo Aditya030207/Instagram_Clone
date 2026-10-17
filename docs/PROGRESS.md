@@ -103,3 +103,9 @@ Replaced formulaic handles, motivational captions, repeated landscape avatars, u
 - Found that the avatar error handler hides a failed image with an inline style. React reused that hidden image when a shared profile/conversation header switched to another user's avatar, leaving even a working photo invisible.
 - Keyed avatar images by their URL so a different photo gets a fresh element without the previous failure's hidden style. Initials remain the fallback for failed requests.
 - Validation: all eleven existing tests, production build, and `git diff --check` pass. Reviewed shared avatar use in profile and conversation headers. Existing tests do not simulate image errors or React DOM reuse; live browser verification remains unavailable following the earlier browser URL-policy denial, with no workaround attempted. Layout and photo credits are unchanged.
+
+## October 17 — scheduled fix: honor reduced motion during navigation
+
+- Found that navigation explicitly requested smooth JavaScript scrolling even when the user requested reduced motion. The existing CSS reduced-motion rule did not change that explicit API argument.
+- Navigation now reads the current system preference and scrolls instantly when reduced motion is enabled, retaining smooth scrolling otherwise. Reading at navigation time also respects preference changes during the session.
+- Validation: all eleven existing tests, production build, and `git diff --check` pass. Reviewed the navigation path and existing CSS preference rule. Existing tests do not exercise browser scrolling or system preferences; live browser verification remains unavailable following the earlier browser URL-policy denial, with no workaround attempted. Layout and content are unchanged.

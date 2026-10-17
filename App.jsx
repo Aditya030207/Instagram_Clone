@@ -310,7 +310,12 @@ export default function App() {
     setLimit(6);
     if (next === "Profile") setProfileId(0);
     if (next === "Notifications") update({ read: true });
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo({
+      top: 0,
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        ? "instant"
+        : "smooth",
+    });
   };
   const openProfile = (id) => {
     setProfileId(id);
