@@ -128,10 +128,15 @@ function UserRow({ user, follow = false, subtitle }) {
   );
 }
 function Post({ post, detailed = false }) {
+  const commentInput = useRef(null);
   const { openProfile, state, toggle, setModal, share, setState } =
     useContext(FeedContext);
   const user = users[post.userId] || users[0];
   const comments = state.comments[post.id] || [];
+  const openComments = () => {
+    if (detailed) commentInput.current?.focus();
+    else setModal({ type: "post", post });
+  };
   return (
     <article className="post" id={detailed ? undefined : `post-${post.id}`}>
       <header className="post-head">
@@ -174,7 +179,7 @@ function Post({ post, detailed = false }) {
           <button
             className="icon-button"
             aria-label={`Comment on ${user.handle}'s post`}
-            onClick={() => setModal({ type: "post", post })}
+            onClick={openComments}
           >
             <Icon name="Comment" />
           </button>
@@ -206,7 +211,7 @@ function Post({ post, detailed = false }) {
         </p>
         <button
           className="comment-link"
-          onClick={() => setModal({ type: "post", post })}
+          onClick={openComments}
         >
           {comments.length
             ? `View all ${comments.length} comments`
@@ -240,6 +245,7 @@ function Post({ post, detailed = false }) {
         >
           <input
             name="comment"
+            ref={commentInput}
             aria-label={`Add a comment to ${user.handle}'s post`}
             placeholder="Add a comment…"
             maxLength={500}

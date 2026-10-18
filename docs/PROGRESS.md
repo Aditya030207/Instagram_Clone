@@ -151,3 +151,9 @@ Replaced formulaic handles, motivational captions, repeated landscape avatars, u
 - Found that the selected conversation was indicated only by a CSS class, while the message field and send button had generic accessible names. Screen-reader users could not determine the active recipient from those controls.
 - Conversation buttons now identify the current item, and the input/send labels include the recipient's name from the same chat ID used for submission.
 - Validation: all twelve existing tests, production build, and `git diff --check` pass. Reviewed selection, recipient labels, and send handler together. Existing tests do not verify screen-reader announcements; live browser verification remains unavailable following the earlier browser URL-policy denial, with no workaround attempted. Visible layout and messaging behavior are unchanged.
+
+## October 18 — scheduled fix: make comment controls useful inside post dialogs
+
+- Found that the comment icon and comment link inside an already-open post dialog simply reassigned the same modal, leaving focus on the button and providing no useful action.
+- Both controls now focus the existing comment field in detailed posts. In the feed they continue to open the post dialog through the shared handler.
+- Validation: all twelve existing tests, production build, and `git diff --check` pass. Reviewed both controls and the input ref in the shared Post component. Existing tests do not verify browser focus; live browser verification remains unavailable following the earlier browser URL-policy denial, with no workaround attempted. No visual changes.
