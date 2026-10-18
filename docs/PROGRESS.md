@@ -139,3 +139,9 @@ Replaced formulaic handles, motivational captions, repeated landscape avatars, u
 - Found that the HTML description still advertised an inspiration/collection product and included the superseded custom slogan, despite the user's correction to a plain Instagram clone.
 - Replaced it with a factual description of the existing feed, profiles, search, and local demo interactions. The visible page and photo credits are untouched.
 - Validation: all twelve tests, production build, and `git diff --check` pass. Inspected the source and generated HTML description. Live browser verification remains unavailable following the earlier browser URL-policy denial; no workaround was attempted.
+
+## October 18 — scheduled fix: avoid placeholder source links for uploads
+
+- Found that uploaded photos used `#` as their source, but credits and the options menu still presented it as an external original-image link. Clicking opened another copy of the demo instead of a photo source.
+- Upload attribution now remains visible as plain text, and the original-image menu link appears only when an HTTPS source exists. Catalog photos retain their working creator/source links.
+- Validation: all twelve existing tests, production build, and `git diff --check` pass. Reviewed composer source values, restored-post source validation, and both link-rendering paths. Existing tests do not exercise rendered links; live browser verification remains unavailable following the earlier browser URL-policy denial, with no workaround attempted.

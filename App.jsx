@@ -247,14 +247,18 @@ function Post({ post, detailed = false }) {
           />
           <button type="submit">Post</button>
         </form>
-        <a
-          className="credit"
-          href={post.source}
-          target="_blank"
-          rel="noreferrer"
-        >
-          {post.author} · {post.provider}
-        </a>
+        {post.source?.startsWith("https://") ? (
+          <a
+            className="credit"
+            href={post.source}
+            target="_blank"
+            rel="noreferrer"
+          >
+            {post.author} · {post.provider}
+          </a>
+        ) : (
+          <span className="credit">{post.author} · {post.provider}</span>
+        )}
       </div>
     </article>
   );
@@ -1101,9 +1105,11 @@ export default function App() {
                 <button onClick={() => openProfile(modal.post.userId)}>
                   <Icon name="Profile" /> Visit profile
                 </button>
-                <a href={modal.post.source} target="_blank" rel="noreferrer">
-                  View original image & credits ↗
-                </a>
+                {modal.post.source?.startsWith("https://") && (
+                  <a href={modal.post.source} target="_blank" rel="noreferrer">
+                    View original image & credits ↗
+                  </a>
+                )}
                 {modal.post.userId === 0 && (
                   <button
                     className="danger"
