@@ -706,6 +706,7 @@ export default function App() {
                     {users.slice(1, 7).map((u) => (
                       <button
                         className={`chat-contact ${chatId === u.id ? "selected" : ""}`}
+                        aria-current={chatId === u.id ? "true" : undefined}
                         key={u.id}
                         onClick={() => setChatId(u.id)}
                       >
@@ -758,13 +759,13 @@ export default function App() {
                           setChatDrafts((drafts) => ({ ...drafts, [chatId]: value }));
                         }}
                         placeholder="Write a message…"
-                        aria-label="Message"
+                        aria-label={`Message to ${users[chatId].name}`}
                         required
                         maxLength={1000}
                       />
                       <button
                         className="icon-button"
-                        aria-label="Send demo message"
+                        aria-label={`Send demo message to ${users[chatId].name}`}
                       >
                         <Icon name="Messages" />
                       </button>

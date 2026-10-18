@@ -145,3 +145,9 @@ Replaced formulaic handles, motivational captions, repeated landscape avatars, u
 - Found that uploaded photos used `#` as their source, but credits and the options menu still presented it as an external original-image link. Clicking opened another copy of the demo instead of a photo source.
 - Upload attribution now remains visible as plain text, and the original-image menu link appears only when an HTTPS source exists. Catalog photos retain their working creator/source links.
 - Validation: all twelve existing tests, production build, and `git diff --check` pass. Reviewed composer source values, restored-post source validation, and both link-rendering paths. Existing tests do not exercise rendered links; live browser verification remains unavailable following the earlier browser URL-policy denial, with no workaround attempted.
+
+## October 18 — scheduled fix: expose the active message recipient
+
+- Found that the selected conversation was indicated only by a CSS class, while the message field and send button had generic accessible names. Screen-reader users could not determine the active recipient from those controls.
+- Conversation buttons now identify the current item, and the input/send labels include the recipient's name from the same chat ID used for submission.
+- Validation: all twelve existing tests, production build, and `git diff --check` pass. Reviewed selection, recipient labels, and send handler together. Existing tests do not verify screen-reader announcements; live browser verification remains unavailable following the earlier browser URL-policy denial, with no workaround attempted. Visible layout and messaging behavior are unchanged.
