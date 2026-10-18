@@ -127,3 +127,9 @@ Replaced formulaic handles, motivational captions, repeated landscape avatars, u
 - Found that searching a recognizable handle such as `@riya.s_` returned no matching person or authored posts because stored handles omit the @ prefix.
 - Shared matching now accepts an optional leading @ while preserving literal caption matches and existing case/whitespace handling. A lone @ is not treated as an empty query.
 - Validation: all twelve tests pass, including prefixed handle searches for people/posts, unmatched handles, a lone @, and literal mentions. Production build and `git diff --check` pass. Live browser verification remains unavailable following the earlier browser URL-policy denial; no workaround was attempted. Layout and content are unchanged.
+
+## October 18 — scheduled fix: understandable post action labels
+
+- Found that screen-reader names for like, comment, share, save, and comment-entry controls exposed internal photo IDs rather than the visible author.
+- Replaced those names with the author's handle and the action, consistently in feed and detailed posts. Like/save pressed-state announcements remain available.
+- Validation: all twelve existing tests, production build, and `git diff --check` pass. Reviewed all five controls in the shared Post component. Existing tests do not verify screen-reader announcements; live browser verification remains unavailable following the earlier browser URL-policy denial, with no workaround attempted. No visible layout or content changes.

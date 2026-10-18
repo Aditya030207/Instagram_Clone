@@ -165,7 +165,7 @@ function Post({ post, detailed = false }) {
         <div className="post-actions">
           <button
             className={`icon-button ${state.liked.includes(post.id) ? "liked" : ""}`}
-            aria-label={`Like ${post.id}`}
+            aria-label={`Like ${user.handle}'s post`}
             aria-pressed={state.liked.includes(post.id)}
             onClick={() => toggle("liked", post.id)}
           >
@@ -173,21 +173,21 @@ function Post({ post, detailed = false }) {
           </button>
           <button
             className="icon-button"
-            aria-label={`Comment on ${post.id}`}
+            aria-label={`Comment on ${user.handle}'s post`}
             onClick={() => setModal({ type: "post", post })}
           >
             <Icon name="Comment" />
           </button>
           <button
             className="icon-button"
-            aria-label={`Share ${post.id}`}
+            aria-label={`Share ${user.handle}'s post`}
             onClick={() => share(post)}
           >
             <Icon name="Messages" />
           </button>
           <button
             className="icon-button save"
-            aria-label={`Save ${post.id}`}
+            aria-label={`Save ${user.handle}'s post`}
             aria-pressed={state.saved.includes(post.id)}
             onClick={() => toggle("saved", post.id)}
           >
@@ -240,7 +240,7 @@ function Post({ post, detailed = false }) {
         >
           <input
             name="comment"
-            aria-label={`Add comment to ${post.id}`}
+            aria-label={`Add a comment to ${user.handle}'s post`}
             placeholder="Add a comment…"
             maxLength={500}
             required
