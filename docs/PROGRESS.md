@@ -133,3 +133,9 @@ Replaced formulaic handles, motivational captions, repeated landscape avatars, u
 - Found that screen-reader names for like, comment, share, save, and comment-entry controls exposed internal photo IDs rather than the visible author.
 - Replaced those names with the author's handle and the action, consistently in feed and detailed posts. Like/save pressed-state announcements remain available.
 - Validation: all twelve existing tests, production build, and `git diff --check` pass. Reviewed all five controls in the shared Post component. Existing tests do not verify screen-reader announcements; live browser verification remains unavailable following the earlier browser URL-policy denial, with no workaround attempted. No visible layout or content changes.
+
+## October 18 — scheduled correction: remove promotional page metadata
+
+- Found that the HTML description still advertised an inspiration/collection product and included the superseded custom slogan, despite the user's correction to a plain Instagram clone.
+- Replaced it with a factual description of the existing feed, profiles, search, and local demo interactions. The visible page and photo credits are untouched.
+- Validation: all twelve tests, production build, and `git diff --check` pass. Inspected the source and generated HTML description. Live browser verification remains unavailable following the earlier browser URL-policy denial; no workaround was attempted.
