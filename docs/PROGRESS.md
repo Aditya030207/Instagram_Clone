@@ -157,3 +157,9 @@ Replaced formulaic handles, motivational captions, repeated landscape avatars, u
 - Found that the comment icon and comment link inside an already-open post dialog simply reassigned the same modal, leaving focus on the button and providing no useful action.
 - Both controls now focus the existing comment field in detailed posts. In the feed they continue to open the post dialog through the shared handler.
 - Validation: all twelve existing tests, production build, and `git diff --check` pass. Reviewed both controls and the input ref in the shared Post component. Existing tests do not verify browser focus; live browser verification remains unavailable following the earlier browser URL-policy denial, with no workaround attempted. No visual changes.
+
+## October 19 — scheduled fix: recover cleanly from upload errors
+
+- Found that choosing a valid catalog photo after an invalid upload left the old upload error visible. Also, selecting the same file after a read failure did not trigger a new change event because the file input retained its value.
+- Catalog selection now clears the obsolete error. The upload handler captures the File and clears the native input value before reading, allowing the same file to be selected again for a retry.
+- Validation: all twelve existing tests, production build, and `git diff --check` pass. Reviewed both selection handlers and FileReader's captured File usage. Existing tests do not simulate native file-selection events; live browser verification remains unavailable following the earlier browser URL-policy denial, with no workaround attempted. No layout or content changes.

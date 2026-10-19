@@ -1208,7 +1208,10 @@ function Composer({ publish }) {
             aria-label={`Choose ${p.location}`}
             aria-pressed={selected.image === p.image}
             disabled={loading}
-            onClick={() => setSelected(p)}
+            onClick={() => {
+              setSelected(p);
+              setUploadError("");
+            }}
           >
             <Photo post={p} />
           </button>
@@ -1220,7 +1223,11 @@ function Composer({ publish }) {
           type="file"
           accept="image/jpeg,image/png,image/webp"
           disabled={loading}
-          onChange={(e) => upload(e.target.files[0])}
+          onChange={(e) => {
+            const file = e.currentTarget.files[0];
+            e.currentTarget.value = "";
+            upload(file);
+          }}
         />
       </label>
       {uploadError && (
