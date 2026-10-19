@@ -181,3 +181,9 @@ Replaced formulaic handles, motivational captions, repeated landscape avatars, u
 - Found that the message history is capped at 430px with overflow, but sending messages never adjusted its scroll position. New messages could appear below the visible area, and reopening long conversations showed their oldest entries.
 - The history now scrolls to its latest message when entering Messages, switching contacts, or updating messages. Typing drafts and unrelated interactions do not trigger scrolling. Scrolling is immediate.
 - Validation: all twelve existing tests, production build, and `git diff --check` pass. Reviewed the overflow styles, ref, and effect dependencies. Existing tests do not exercise browser scroll geometry; live browser verification remains unavailable following the earlier browser URL-policy denial, with no workaround attempted. No layout changes.
+
+## October 19 — scheduled fix: normalize duplicate stored interactions
+
+- Found that state validation accepted repeated following IDs, inflating the profile's following count when stored data contained duplicates. Likes and saved entries also retained duplicate IDs despite representing toggles.
+- Restored following, likes, and saved lists now retain each valid ID once, preserving their order and existing malformed-entry filtering.
+- Validation: all thirteen tests and production build pass; `git diff --check` passes. Added a storage round-trip regression with duplicate and invalid entries in all three lists. Live browser verification remains unavailable following the earlier browser URL-policy denial; no workaround was attempted. No layout changes.

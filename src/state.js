@@ -25,13 +25,13 @@ export function validateState(value) {
   if (!value || typeof value !== "object") return { ...defaultState };
   return {
     liked: Array.isArray(value.liked)
-      ? value.liked.filter((x) => typeof x === "string")
+      ? [...new Set(value.liked.filter((x) => typeof x === "string"))]
       : [],
     saved: Array.isArray(value.saved)
-      ? value.saved.filter((x) => typeof x === "string")
+      ? [...new Set(value.saved.filter((x) => typeof x === "string"))]
       : [],
     following: Array.isArray(value.following)
-      ? value.following.filter((x) => Number.isInteger(x) && x > 0 && x < 13)
+      ? [...new Set(value.following.filter((x) => Number.isInteger(x) && x > 0 && x < 13))]
       : [1, 2, 4],
     comments:
       value.comments && typeof value.comments === "object"

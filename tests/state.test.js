@@ -124,3 +124,16 @@ test("appearance defaults to dark and preserves either saved choice", () => {
     assert.equal(readState({ getItem: () => JSON.stringify(saved) }).theme, theme);
   }
 });
+
+
+test("duplicate stored interactions are restored as unique valid entries", () => {
+  const restored = readState({ getItem: () => JSON.stringify({
+    liked: ["one", "one", "two", null],
+    saved: ["two", "two", 3],
+    following: [2, 2, 4, 4, 0, 99],
+  }) });
+  assert.deepEqual(restored.liked, ["one", "two"]);
+  assert.deepEqual(restored.saved, ["two"]);
+  assert.deepEqual(restored.following, [2, 4]);
+  assert.deepEqual(readState({ getItem: () => JSON.stringify(restored) }), restored);
+});
