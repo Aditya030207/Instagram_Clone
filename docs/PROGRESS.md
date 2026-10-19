@@ -169,3 +169,9 @@ Replaced formulaic handles, motivational captions, repeated landscape avatars, u
 - Found that a spaces-only caption passed the native required check but was silently rejected by the submit handler, leaving Share apparently unresponsive.
 - Caption changes now update native custom validity using the same trimmed-text rule as submission. A blank caption gets an actionable message; entering text clears the error. The existing submit guard remains in place.
 - Validation: all twelve existing tests, production build, and `git diff --check` pass. Reviewed the validity reset and submit guard. Existing tests do not exercise native form-validation UI; live browser verification remains unavailable following the earlier browser URL-policy denial, with no workaround attempted. Layout and photo credits are unchanged.
+
+## October 19 — comment and message validation
+
+- Found that spaces-only comments and messages passed native required validation, then were silently discarded and cleared by submission handlers.
+- Both single-line fields now require a non-whitespace character through native pattern validation, with explanatory titles. This keeps invalid text available for correction. Declarative validation also follows per-contact message drafts when conversations change, without retaining a previous contact's custom validity state.
+- Validation: all twelve existing tests, production build, and `git diff --check` pass. Reviewed both submit guards and message draft switching. Existing tests do not exercise native validation UI; live browser verification remains unavailable following the earlier browser URL-policy denial, with no workaround attempted. No layout changes.

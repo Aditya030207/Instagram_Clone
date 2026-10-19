@@ -246,6 +246,8 @@ function Post({ post, detailed = false }) {
           <input
             name="comment"
             ref={commentInput}
+            pattern={".*\\S.*"}
+            title="Write a comment containing more than spaces."
             aria-label={`Add a comment to ${user.handle}'s post`}
             placeholder="Add a comment…"
             maxLength={500}
@@ -765,6 +767,8 @@ export default function App() {
                           setChatDrafts((drafts) => ({ ...drafts, [chatId]: value }));
                         }}
                         placeholder="Write a message…"
+                        pattern={".*\\S.*"}
+                        title="Write a message containing more than spaces."
                         aria-label={`Message to ${users[chatId].name}`}
                         required
                         maxLength={1000}
