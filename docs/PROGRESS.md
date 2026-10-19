@@ -175,3 +175,9 @@ Replaced formulaic handles, motivational captions, repeated landscape avatars, u
 - Found that spaces-only comments and messages passed native required validation, then were silently discarded and cleared by submission handlers.
 - Both single-line fields now require a non-whitespace character through native pattern validation, with explanatory titles. This keeps invalid text available for correction. Declarative validation also follows per-contact message drafts when conversations change, without retaining a previous contact's custom validity state.
 - Validation: all twelve existing tests, production build, and `git diff --check` pass. Reviewed both submit guards and message draft switching. Existing tests do not exercise native validation UI; live browser verification remains unavailable following the earlier browser URL-policy denial, with no workaround attempted. No layout changes.
+
+## October 19 — scheduled fix: keep recent messages visible
+
+- Found that the message history is capped at 430px with overflow, but sending messages never adjusted its scroll position. New messages could appear below the visible area, and reopening long conversations showed their oldest entries.
+- The history now scrolls to its latest message when entering Messages, switching contacts, or updating messages. Typing drafts and unrelated interactions do not trigger scrolling. Scrolling is immediate.
+- Validation: all twelve existing tests, production build, and `git diff --check` pass. Reviewed the overflow styles, ref, and effect dependencies. Existing tests do not exercise browser scroll geometry; live browser verification remains unavailable following the earlier browser URL-policy denial, with no workaround attempted. No layout changes.

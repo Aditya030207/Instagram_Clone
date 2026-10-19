@@ -289,10 +289,16 @@ export default function App() {
   const [profileId, setProfileId] = useState(0);
   const [chatId, setChatId] = useState(1);
   const [chatDrafts, setChatDrafts] = useState({});
+  const chatHistory = useRef(null);
   const [toast, setToast] = useState("");
   const [limit, setLimit] = useState(6);
   const [storageError, setStorageError] = useState(false);
   const [reelIndex, setReelIndex] = useState(0);
+  useEffect(() => {
+    if (view === "Messages" && chatHistory.current) {
+      chatHistory.current.scrollTop = chatHistory.current.scrollHeight;
+    }
+  }, [view, chatId, state.messages]);
   useEffect(() => {
     if (view === "Search") searchInput.current?.focus();
   }, [view]);
@@ -734,7 +740,7 @@ export default function App() {
                       user={users[chatId]}
                       subtitle="Demo conversation"
                     />
-                    <div className="chat-bubbles">
+                    <div className="chat-bubbles" ref={chatHistory}>
                       <p className="bubble">hey, did you see this?</p>
                       {(state.messages[chatId] || []).map((m, i) => (
                         <p className="bubble own" key={i}>
