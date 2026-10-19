@@ -187,3 +187,9 @@ Replaced formulaic handles, motivational captions, repeated landscape avatars, u
 - Found that state validation accepted repeated following IDs, inflating the profile's following count when stored data contained duplicates. Likes and saved entries also retained duplicate IDs despite representing toggles.
 - Restored following, likes, and saved lists now retain each valid ID once, preserving their order and existing malformed-entry filtering.
 - Validation: all thirteen tests and production build pass; `git diff --check` passes. Added a storage round-trip regression with duplicate and invalid entries in all three lists. Live browser verification remains unavailable following the earlier browser URL-policy denial; no workaround was attempted. No layout changes.
+
+## October 20 — scheduled fix: identify composer photo choices
+
+- Found that composer thumbnail buttons were named only by location. Photos with blank locations were announced merely as “Choose”, and repeated locations made choices indistinguishable.
+- Each choice now has a numbered accessible name including its existing image description. Selected-state announcements remain available, and visible thumbnails are unchanged.
+- Validation: all thirteen existing tests, production build, and `git diff --check` pass. Reviewed the eight-choice map and each photo's existing alt fallback. Existing tests do not verify screen-reader announcements; live browser verification remains unavailable following the earlier browser URL-policy denial, with no workaround attempted.

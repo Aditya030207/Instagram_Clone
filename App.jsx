@@ -1211,11 +1211,11 @@ function Composer({ publish }) {
         <Photo key={selected.image} post={selected} />
       </div>
       <div className="image-picker">
-        {initialPosts.slice(0, 8).map((p) => (
+        {initialPosts.slice(0, 8).map((p, index) => (
           <button
             type="button"
             key={p.id}
-            aria-label={`Choose ${p.location}`}
+            aria-label={`Choose photo ${index + 1}: ${p.alt}`}
             aria-pressed={selected.image === p.image}
             disabled={loading}
             onClick={() => {
