@@ -1241,6 +1241,13 @@ function Composer({ publish }) {
           name="caption"
           placeholder="Write a caption…"
           maxLength={1500}
+          onChange={(e) => {
+            e.currentTarget.setCustomValidity(
+              e.currentTarget.value.trim()
+                ? ""
+                : "Write a caption before sharing.",
+            );
+          }}
           required
         />
       </label>

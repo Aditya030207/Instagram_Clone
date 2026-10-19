@@ -163,3 +163,9 @@ Replaced formulaic handles, motivational captions, repeated landscape avatars, u
 - Found that choosing a valid catalog photo after an invalid upload left the old upload error visible. Also, selecting the same file after a read failure did not trigger a new change event because the file input retained its value.
 - Catalog selection now clears the obsolete error. The upload handler captures the File and clears the native input value before reading, allowing the same file to be selected again for a retry.
 - Validation: all twelve existing tests, production build, and `git diff --check` pass. Reviewed both selection handlers and FileReader's captured File usage. Existing tests do not simulate native file-selection events; live browser verification remains unavailable following the earlier browser URL-policy denial, with no workaround attempted. No layout or content changes.
+
+## October 19 — composer caption validation
+
+- Found that a spaces-only caption passed the native required check but was silently rejected by the submit handler, leaving Share apparently unresponsive.
+- Caption changes now update native custom validity using the same trimmed-text rule as submission. A blank caption gets an actionable message; entering text clears the error. The existing submit guard remains in place.
+- Validation: all twelve existing tests, production build, and `git diff --check` pass. Reviewed the validity reset and submit guard. Existing tests do not exercise native form-validation UI; live browser verification remains unavailable following the earlier browser URL-policy denial, with no workaround attempted. Layout and photo credits are unchanged.
