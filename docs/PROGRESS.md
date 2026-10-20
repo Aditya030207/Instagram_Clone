@@ -193,3 +193,9 @@ Replaced formulaic handles, motivational captions, repeated landscape avatars, u
 - Found that composer thumbnail buttons were named only by location. Photos with blank locations were announced merely as “Choose”, and repeated locations made choices indistinguishable.
 - Each choice now has a numbered accessible name including its existing image description. Selected-state announcements remain available, and visible thumbnails are unchanged.
 - Validation: all thirteen existing tests, production build, and `git diff --check` pass. Reviewed the eight-choice map and each photo's existing alt fallback. Existing tests do not verify screen-reader announcements; live browser verification remains unavailable following the earlier browser URL-policy denial, with no workaround attempted.
+
+## October 20 — scheduled fix: retain focus after clearing search
+
+- Found that Clear search removed its own focused button when the query became empty, leaving keyboard focus outside the search field. Typing a replacement query then required selecting the field again.
+- Clearing now explicitly focuses the existing search input, in both Search and Explore, while retaining the query reset and normal result updates.
+- Validation: all thirteen existing tests, production build, and `git diff --check` pass. Reviewed the clear handler and shared input ref. Existing tests do not verify browser focus; live browser verification remains unavailable following the earlier browser URL-policy denial, with no workaround attempted. No visual changes.

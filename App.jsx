@@ -599,7 +599,10 @@ export default function App() {
                       <button
                         className="icon-button"
                         aria-label="Clear search"
-                        onClick={() => setQuery("")}
+                        onClick={() => {
+                          setQuery("");
+                          searchInput.current?.focus();
+                        }}
                       >
                         <Icon name="Close" size={18} />
                       </button>
