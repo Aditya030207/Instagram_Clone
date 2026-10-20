@@ -432,7 +432,7 @@ export default function App() {
     >
       <div className={`app-shell view-${view.toLowerCase()}`}>
         <a className="skip-link" href="#main">
-          Skip to feed
+          Skip to main content
         </a>
         <aside className="sidebar">
           <button
@@ -944,7 +944,15 @@ export default function App() {
             )}
             {modal.type === "story" && (
               <div className="story-view">
-                <div className="story-progress">
+                <div
+                  className="story-progress"
+                  role="progressbar"
+                  aria-label="Story position"
+                  aria-valuemin={1}
+                  aria-valuemax={storyPosts.length}
+                  aria-valuenow={modal.index + 1}
+                  aria-valuetext={`Story ${modal.index + 1} of ${storyPosts.length}`}
+                >
                   {users.slice(1, 9).map((u, i) => (
                     <span
                       className={i <= modal.index ? "seen" : ""}

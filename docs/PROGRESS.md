@@ -205,3 +205,9 @@ Replaced formulaic handles, motivational captions, repeated landscape avatars, u
 - Found remaining copy from the superseded redesign in Reels (“a slower kind of reel”, “MOMENT”) and Saved (“The moments you want to come back to”), contrary to the user's plain Instagram direction.
 - Removed the Reels slogan, retained its ordinary position count, and changed Saved's introduction to a factual browser-storage note.
 - Validation: all thirteen existing tests, production build, and `git diff --check` pass. Reviewed the Reels and Saved rendering branches. Live visual verification remains unavailable following the earlier browser URL-policy denial; no workaround was attempted. Photo content and credits are preserved.
+
+## October 20 — scheduled fix: expose story position accessibly
+
+- Found that the Stories position indicator consisted only of styled empty spans, leaving its current position and total unavailable to screen readers.
+- Added range semantics and a textual position derived from the same story index and catalog length. Also corrected the skip link to say “main content”, since its destination serves Search, Messages, and other views as well as the feed.
+- Validation: all thirteen existing tests, production build, and `git diff --check` pass. Reviewed the progress values against story navigation. Existing tests do not verify assistive-technology output; live browser verification remains unavailable following the earlier browser URL-policy denial, with no workaround attempted. No layout changes.
