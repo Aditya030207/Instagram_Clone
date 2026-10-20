@@ -552,8 +552,7 @@ export default function App() {
                 <>
                   {view === "Saved" && (
                     <p className="section-intro">
-                      The moments you want to come back to. Only visible in this
-                      browser.
+                      Saved posts are stored in this browser.
                     </p>
                   )}
                   <div className="feed">
@@ -794,14 +793,11 @@ export default function App() {
               )}
               {view === "Reels" && (
                 <section className="reel-section">
-                  <p className="section-intro">
-                    Photo stories · a slower kind of reel
-                  </p>
                   <div className="reel">
                     <Photo post={initialPosts[reelIndex]} />
                     <div className="reel-caption">
                       <span className="eyebrow">
-                        MOMENT {reelIndex + 1} / {initialPosts.length}
+                        {reelIndex + 1} / {initialPosts.length}
                       </span>
                       <h2>{initialPosts[reelIndex].location}</h2>
                       <p>{initialPosts[reelIndex].caption}</p>

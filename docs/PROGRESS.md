@@ -199,3 +199,9 @@ Replaced formulaic handles, motivational captions, repeated landscape avatars, u
 - Found that Clear search removed its own focused button when the query became empty, leaving keyboard focus outside the search field. Typing a replacement query then required selecting the field again.
 - Clearing now explicitly focuses the existing search input, in both Search and Explore, while retaining the query reset and normal result updates.
 - Validation: all thirteen existing tests, production build, and `git diff --check` pass. Reviewed the clear handler and shared input ref. Existing tests do not verify browser focus; live browser verification remains unavailable following the earlier browser URL-policy denial, with no workaround attempted. No visual changes.
+
+## October 20 — scheduled correction: remove remaining custom view slogans
+
+- Found remaining copy from the superseded redesign in Reels (“a slower kind of reel”, “MOMENT”) and Saved (“The moments you want to come back to”), contrary to the user's plain Instagram direction.
+- Removed the Reels slogan, retained its ordinary position count, and changed Saved's introduction to a factual browser-storage note.
+- Validation: all thirteen existing tests, production build, and `git diff --check` pass. Reviewed the Reels and Saved rendering branches. Live visual verification remains unavailable following the earlier browser URL-policy denial; no workaround was attempted. Photo content and credits are preserved.
